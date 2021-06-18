@@ -30,6 +30,9 @@
 	<!-- Thymeleaf -->
 	<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
 	
+	<!-- Bean Validation / Hibernate Validator -->
+	<hibernate-validator.version>5.3.6.Final</hibernate-validator.version>
+	
 	<maven.compiler.source> 1.8 </maven.compiler.source>
    	<maven.compiler.target> 1.8 </maven.compiler.target>
   </properties>
@@ -63,7 +66,8 @@
   <dependencies>
   	<dependency>
   		<groupId>org.springframework</groupId>
-  		<artifactId>spring-webmvc</artifactId>  		
+  		<artifactId>spring-webmvc</artifactId>
+  		<scope>compile</scope>  		
   	</dependency>
   	
   	<!-- Servlet API -->
@@ -88,6 +92,14 @@
 		<version>${thymeleaf.version}</version>
 		<scope>compile</scope>
 	</dependency>
+	
+	<!-- Bean Validation / Hibernate Validator -->
+	<dependency>
+         <groupId>org.hibernate</groupId>
+         <artifactId>hibernate-validator</artifactId>
+         <version>${hibernate-validator.version}</version>
+         <scope>compile</scope>
+     </dependency>
   	
   </dependencies>
   

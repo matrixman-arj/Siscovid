@@ -1,8 +1,30 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
 
 	<body>
-		<h1>Olá! Thymeleaf configurado!</h1>
+		<h1>Olá! Thymeleaf iniciando o SISCOVID!</h1>
 	</body>
+	
+	<form method="POST" th:object="${usuario}">
+						
+		<div th:each="erro : ${#fields.detailedErrors()}">
+			<span th:text="${erro.message}"></span>
+		</div>
+		
+		<span th:text="${mensagem}"></span>
+		<br>
+		<br>
+		<label>Nome</label>
+		<input type="text" th:field="*{nome}" >
+		<br><br>
+		
+		<label>Nome de Guerra</label>
+		<input type="text" th:field="*{nomeGuerra}">
+		<br><br>
+		
+		
+		<input type="submit" value="Salvar">
+	</form>
 
 </html>
