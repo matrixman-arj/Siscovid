@@ -30,5 +30,10 @@ public class UsuariosController {
 		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso! ");
 		return "redirect:/usuarios/novo";		
 	}
+	
+	@RequestMapping("/usuarios/cadastro")
+	public String cadastro() {
+		return "usuario/cadastro-produto";
+	}
 
 }
