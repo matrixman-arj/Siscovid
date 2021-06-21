@@ -18,6 +18,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import br.mil.eb.decex.siscovid.controller.UsuariosController;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
 @ComponentScan(basePackageClasses = { UsuariosController.class })
@@ -48,7 +49,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		engine.setEnableSpringELCompiler(true);
 		engine.setTemplateResolver(templateResolver());
 		
-//		engine.addDialect(new LayoutDialect());
+		engine.addDialect(new LayoutDialect());
 //		engine.addDialect(new SisgecDialect());
 //		engine.addDialect(new DataAttributeDialect());
 //		engine.addDialect(new SpringSecurityDialect());
