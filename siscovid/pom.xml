@@ -36,6 +36,10 @@
 	<!-- Thymeleaf - Layout Dialect -->
 	<thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
 	
+	<!-- Logging -->
+	<log4j.version>2.13.3</log4j.version>
+	<jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
+	
 	<maven.compiler.source> 1.8 </maven.compiler.source>
    	<maven.compiler.target> 1.8 </maven.compiler.target>
   </properties>
@@ -65,13 +69,42 @@
   	</dependencies>
   </dependencyManagement>
   
-  <!-- Spring MVC -->
+  
   <dependencies>
+  	<!-- Spring MVC -->
   	<dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-webmvc</artifactId>
-  		<scope>compile</scope>  		
+  		<scope>compile</scope>
+  		<exclusions>
+  			<exclusion>
+  				<groupId>commons-logging</groupId>
+  				<artifactId>commons-logging</artifactId>
+  			</exclusion>
+  		</exclusions>  		
   	</dependency>
+  	
+  	<!-- Logging -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${jcl-over-slf4j.version}</version>
+		</dependency>
   	
   	<!-- Servlet API -->
 	<dependency>

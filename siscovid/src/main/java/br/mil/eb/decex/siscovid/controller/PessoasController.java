@@ -9,30 +9,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.mil.eb.decex.siscovid.model.Usuario;
+import br.mil.eb.decex.siscovid.model.Pessoa;
 
 @Controller
-public class UsuariosController {
-		
-	@RequestMapping("/usuarios/novo")
-	public String novo(Usuario usuario) {		
-		return "usuario/CadastroUsuario";
+public class PessoasController {
+	
+	@RequestMapping("/pessoas/novo")
+	public String novo(Model model) {
+		model.addAttribute(new Pessoa());
+		return "pessoa/CadastroPessoa";
 	}
 	
-	@RequestMapping(value= "/usuarios/novo", method = RequestMethod.POST)
-	public String cadastrar(@Valid Usuario usuario, BindingResult result, Model model, RedirectAttributes attributes) {
+	@RequestMapping(value= "/pessoas/novo", method = RequestMethod.POST)
+	public String cadastrar(@Valid Pessoa pessoa, BindingResult result, Model model, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
-			model.addAttribute(usuario);
-			return "usuario/CadastroUsuario";
+			model.addAttribute(pessoa);
+			return "pessoa/CadastroPessoa";
 			
 		}
 		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso! ");
-		return "redirect:/usuarios/novo";		
+		return "redirect:/pessoas/novo";		
 	}
 	
-	@RequestMapping("/usuarios/cadastro")
+	@RequestMapping("/pessoas/cadastro")
 	public String cadastro() {
-		return "usuario/cadastro-produto";
+		return "pessoa/cadastro-produto";
 	}
 
 }

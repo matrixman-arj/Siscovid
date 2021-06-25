@@ -1,0 +1,27 @@
+/*
+######################
+# COMPONENTES
+######################
+*/
+
+/* Tamanho do icone para adicionar pessoa*/
+.sc-glyphicon-large {
+	font-size: 18px;
+}
+
+
+/*
+######################
+# COMPONENTES
+######################
+*/
+
+/* Ação do campo para adicionar pessoa*/
+
+.sc-field-action {
+	display: flex;
+}
+
+.sc-field-action__icon {
+	margin: 6px 0 0 5px;
+}

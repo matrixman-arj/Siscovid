@@ -8,11 +8,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-	<title>Siscovid</title>
-	<link rel="stylesheet" type="text/css" href="/siscovid/layout/stylesheets/vendors/bootstrap-switch.min.css"/>
-	<link rel="stylesheet" type="text/css" href="/siscovid/layout/stylesheets/vendors.min.css"/>
-	<link rel="stylesheet" type="text/css" href="/siscovid/layout/stylesheets/decex.min.css"/>
-	<link rel="stylesheet" type="text/css" href="/siscovid/layout/stylesheets/application.css"/>
+	<title>Siscovid</title>	
+	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/vendors.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/decex.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/application.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/siscovid.css}"/>
+	<link rel="shortcut icon" th:href="@{/images/favicon.png}"/>
+	
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -24,85 +26,19 @@
 <body>
 
 <div class="decex-layout-page">
-	<nav class="navbar  navbar-fixed-top  navbar-default  js-sticky-reference" id="main-navbar">
-	  <div class="container-fluid">
-
-	    <div class="navbar-header">
-	      <a class="navbar-brand  hidden-xs" href="#">
-	        <img alt="Siscovid-19" src="/siscovid/images/siscovid logo-com-virus1.png"/>
-	      </a>
-
-	      <ul class="nav  navbar-nav">
-	        <li>
-	          <a href="#" class="js-sidebar-toggle"><i class="fa  fa-bars"></i></a>
-	        </li>
-	      </ul>
-	    </div>
-
-	    <ul class="nav navbar-nav  navbar-right">	          
-	      <li>
-	        <a href="#"><em class="fa  fa-sign-out"></em></a>
-	      </li> 
-	    </ul>
-
-	  </div>
-	</nav>
 	
-	<aside class="decex-layout-sidebar  js-sidebar">
-		<div class="decex-layout-sidebar__content">
-
-			    <nav class="decex-menu  js-menu">
-			      <ul class="decex-menu__list">
-			
-			        <li class="decex-menu__item">
-			          <a href="dashboard.html"><i class="fa  fa-fw  fa-home"></i><span>Dashboard</span></a>
-			        </li>
-
-			        <li class="decex-menu__item  is-active">
-			          <a href="#">
-			            <i class="fa  fa-fw  fa-file-text"></i><span>Cadastros</span>
-			            <i class="decex-menu__navigation-icon  fa"></i>
-			          </a>
-			      
-			          <ul class="decex-menu__list  decex-menu__list--sublist">
-			            <li class="decex-menu__item  decex-menu__item--link"><a href="cadastro-produto.html">Cadastro de produto</a></li>
-			            <li class="decex-menu__item  decex-menu__item--link  is-active"><a href="pesquisa-produtos.html">Pesquisa de produtos</a></li>
-			            <li class="decex-menu__item  decex-menu__item--link"><a href="tabela-sem-dados.html">Tabela sem dados</a></li>
-			          </ul>
-			        </li>
-
-			        <li class="decex-menu__item  is-expanded">
-			          <a href="#">
-			            <i class="fa  fa-fw  fa-file-text"></i><span>Páginas comuns</span>
-			            <i class="decex-menu__navigation-icon  fa"></i>
-			          </a>
-
-			          <ul class="decex-menu__list  decex-menu__list--sublist">
-			            <li class="decex-menu__item  decex-menu__item--link"><a href="pagina-vazia.html">Página vazia</a></li>
-			            <li class="decex-menu__item  decex-menu__item--link"><a href="login.html">Login</a></li>
-			            <li class="decex-menu__item  decex-menu__item--link"><a href="esqueceu-a-senha.html">Esqueceu a senha</a></li>
-			            <li class="decex-menu__item  decex-menu__item--link"><a href="403.html">403</a></li>
-			            <li class="decex-menu__item  decex-menu__item--link"><a href="404.html">404</a></li>
-			            <li class="decex-menu__item  decex-menu__item--link"><a href="500.html">500</a></li>
-			          </ul>
-        			</li>
-
-      			</ul>
-    		</nav>
-
-		</div>
-	</aside>
+	<div th:replace="layout/fragments/BarraNavegacao :: navbar"></div>
+	<div th:replace="layout/fragments/MenuLateral :: layout-sidebar"></div>
+	
 	
 	<section class="decex-layout-content  js-content" layout:fragment="conteudo"></section>
 	
-	<footer class="decex-layout-footer  js-content">
-		<div class="container-fluid">
-			<span class="decex-footer-disclaimer">&copy; 2021 DECEX. Todos os direitos reservados.</span>
-		</div>
-	</footer>
+	<div th:replace="layout/fragments/Footer :: layout-footer"></div>
 	
 </div>
-<script src="/siscovid/layout/javascripts/vendors.min.js"></script>
-<script src="/siscovid/layout/javascripts/decex.min.js"></script>	
+<script th:src="@{/layout/javascripts/vendors.min.js}"></script>
+<script th:src="@{/layout/javascripts/decex.min.js}"></script>
+
+<th:block layout:fragment="javascript-extra"></th:block>	
 </body>
 </html>
