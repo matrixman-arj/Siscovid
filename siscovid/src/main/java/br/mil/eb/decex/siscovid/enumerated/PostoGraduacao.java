@@ -30,16 +30,15 @@ public enum PostoGraduacao {
 	SOLDADO("Soldado"),
 	SVD_CIV("Servidor Civil");
 	
-	private String value;
+	private String descricao;
 	
-	private PostoGraduacao(String value) {
-		this.value = value;
+	PostoGraduacao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public String getValue() {
-		return value;
+	public String getDescricao() {
+		return descricao;
 	}
-	public void setValue(String value) {
-		this.value = value;
-	}
+	
+	
 }

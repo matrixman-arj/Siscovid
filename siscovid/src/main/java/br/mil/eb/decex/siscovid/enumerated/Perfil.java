@@ -2,21 +2,19 @@ package br.mil.eb.decex.siscovid.enumerated;
 
 public enum Perfil {
 	
-	USUARIO("Usuário"),
+	HOMOLOGADOR("Auditório"),
+	GERENTE("Gerente"),
 	ADMINISTRADOR("Administrador"),
-	AUDITORIO("Auditório");
+	USUARIO("Usuário");	
 	
-private String value;
-	
-	private Perfil(String value) {
-		this.value = value;
+	private String descricao;
+
+	Perfil(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public String getValue() {
-		return value;
+	public String getDescricao() {
+		return descricao;
 	}
-	public void setValue(String value) {
-		this.value = value;
-	}
-
+		
 }

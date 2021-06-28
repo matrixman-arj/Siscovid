@@ -7,16 +7,13 @@ public enum Status {
 	RECUPERADO("Recuperado"),
 	OBITO("Óbito");
 	
-private String value;
+	private String descricao;
 	
-	private Status(String value) {
-		this.value = value;
+	Status(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public String getValue() {
-		return value;
-	}
-	public void setValue(String value) {
-		this.value = value;
-	}
+	public String getDescricao() {
+		return descricao;
+	}	
 }

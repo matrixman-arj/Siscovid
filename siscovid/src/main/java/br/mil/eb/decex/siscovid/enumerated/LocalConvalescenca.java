@@ -6,17 +6,13 @@ public enum LocalConvalescenca {
 	OMDS("Organização Militar de Saúde"),
 	OCS("Organização Civil de Saúde");	
 	
-private String value;
+private String descricao;
 	
-	private LocalConvalescenca(String value) {
-		this.value = value;
+	LocalConvalescenca(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public String getValue() {
-		return value;
-	}
-	public void setValue(String value) {
-		this.value = value;
-	}
-
+	public String getDescricao() {
+		return descricao;
+	}	
 }

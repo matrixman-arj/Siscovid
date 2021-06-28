@@ -1,16 +1,39 @@
 package br.mil.eb.decex.siscovid.model;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.mil.eb.decex.siscovid.enumerated.LocalConvalescenca;
 import br.mil.eb.decex.siscovid.enumerated.Status;
 
-public class Infectado {
+public class Infectado implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
-	private Usuario codigo_usuario;
+	
+	@OneToMany(mappedBy = "infectado")	
+	private List<Paciente> pessoas;
+	
+	@Enumerated(EnumType.STRING)
 	private Status status;
+	
+	@Column(name = "local_convalescenca")
+	@Enumerated(EnumType.STRING)
 	private LocalConvalescenca localConvelescenca;
+	
 	private DateTimeFormat data_inicial;
 	
 	
@@ -19,25 +42,29 @@ public class Infectado {
 	}
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
+	}	
+	
+	public List<Paciente> getPessoas() {
+		return pessoas;
 	}
-	public Usuario getCodigo_usuario() {
-		return codigo_usuario;
+	public void setPessoas(List<Paciente> pessoas) {
+		this.pessoas = pessoas;
 	}
-	public void setCodigo_usuario(Usuario codigo_usuario) {
-		this.codigo_usuario = codigo_usuario;
-	}
+	
 	public Status getStatus() {
 		return status;
 	}
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+	
 	public LocalConvalescenca getLocalConvelescenca() {
 		return localConvelescenca;
 	}
 	public void setLocalConvelescenca(LocalConvalescenca localConvelescenca) {
 		this.localConvelescenca = localConvelescenca;
 	}
+	
 	public DateTimeFormat getData_inicial() {
 		return data_inicial;
 	}

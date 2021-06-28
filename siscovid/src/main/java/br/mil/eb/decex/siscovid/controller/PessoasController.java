@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.mil.eb.decex.siscovid.model.Pessoa;
+import br.mil.eb.decex.siscovid.model.Paciente;
 
 @Controller
 public class PessoasController {
 	
 	@RequestMapping("/pessoas/novo")
 	public String novo(Model model) {
-		model.addAttribute(new Pessoa());
+		model.addAttribute(new Paciente());
 		return "pessoa/CadastroPessoa";
 	}
 	
 	@RequestMapping(value= "/pessoas/novo", method = RequestMethod.POST)
-	public String cadastrar(@Valid Pessoa pessoa, BindingResult result, Model model, RedirectAttributes attributes) {
+	public String cadastrar(@Valid Paciente pessoa, BindingResult result, Model model, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			model.addAttribute(pessoa);
 			return "pessoa/CadastroPessoa";

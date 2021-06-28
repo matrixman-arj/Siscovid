@@ -23,6 +23,8 @@
   	
   	<!-- Spring MVC -->
   	<spring-framework.version>4.3.0.RELEASE</spring-framework.version>
+  	<flyway-maven-plugin.version>7.10.0</flyway-maven-plugin.version>
+  	<postgresql-connector-java.version>42.2.22</postgresql-connector-java.version>
   	
   	<!-- Servlet API -->
 	<servlet.version>3.1.0</servlet.version>	
@@ -40,6 +42,9 @@
 	<log4j.version>2.13.3</log4j.version>
 	<jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
 	
+	<!-- JPA / Hibernate -->
+	<hibernate.version>5.1.0.Final</hibernate.version>
+	
 	<maven.compiler.source> 1.8 </maven.compiler.source>
    	<maven.compiler.target> 1.8 </maven.compiler.target>
   </properties>
@@ -54,6 +59,16 @@
   				<target>${java.version}</target>
   			</configuration>
   		</plugin>
+  		
+  		<plugin>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-maven-plugin</artifactId>
+			<version>${flyway-maven-plugin.version}</version>
+			<configuration>
+				<driver>org.postgresql.Driver</driver>	
+			</configuration>
+		</plugin>		
+  		
   	</plugins>
   </build>
   
@@ -105,6 +120,31 @@
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${jcl-over-slf4j.version}</version>
 		</dependency>
+		
+		<!-- JPA / Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Hibernate - Java 8 support -->
+        <dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-java8</artifactId>
+    		<version>${hibernate.version}</version>
+    		<scope>compile</scope>
+		</dependency>
+		
+		<!-- PostgreSql driver -->
+		<dependency>
+		    <groupId>org.postgresql</groupId>
+		    <artifactId>postgresql</artifactId>
+		    <version>${postgresql-connector-java.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+		
   	
   	<!-- Servlet API -->
 	<dependency>
