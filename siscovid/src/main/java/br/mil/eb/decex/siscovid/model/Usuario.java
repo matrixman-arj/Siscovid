@@ -1,13 +1,17 @@
 package br.mil.eb.decex.siscovid.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 import br.mil.eb.decex.siscovid.enumerated.Perfil;
 import br.mil.eb.decex.siscovid.enumerated.Status;
 
-public class Usuario extends Pessoa{
+@Embeddable
+public class Usuario implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 

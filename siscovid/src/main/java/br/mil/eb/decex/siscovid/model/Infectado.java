@@ -1,21 +1,24 @@
 package br.mil.eb.decex.siscovid.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.persistence.Table;
 
 import br.mil.eb.decex.siscovid.enumerated.LocalConvalescenca;
 import br.mil.eb.decex.siscovid.enumerated.Status;
 
+@Entity
+@Table(name = "infectado")
 public class Infectado implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -25,7 +28,7 @@ public class Infectado implements Serializable {
 	private Long codigo;
 	
 	@OneToMany(mappedBy = "infectado")	
-	private List<Paciente> pessoas;
+	private List<Pessoa> pessoas;
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;
@@ -34,7 +37,7 @@ public class Infectado implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private LocalConvalescenca localConvelescenca;
 	
-	private DateTimeFormat data_inicial;
+	private LocalDateTime data_inicial;
 	
 	
 	public Long getCodigo() {
@@ -43,11 +46,11 @@ public class Infectado implements Serializable {
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}	
-	
-	public List<Paciente> getPessoas() {
+		
+	public List<Pessoa> getPessoas() {
 		return pessoas;
 	}
-	public void setPessoas(List<Paciente> pessoas) {
+	public void setPessoas(List<Pessoa> pessoas) {
 		this.pessoas = pessoas;
 	}
 	
@@ -64,13 +67,14 @@ public class Infectado implements Serializable {
 	public void setLocalConvelescenca(LocalConvalescenca localConvelescenca) {
 		this.localConvelescenca = localConvelescenca;
 	}
-	
-	public DateTimeFormat getData_inicial() {
+		
+	public LocalDateTime getData_inicial() {
 		return data_inicial;
 	}
-	public void setData_inicial(DateTimeFormat data_inicial) {
+	public void setData_inicial(LocalDateTime data_inicial) {
 		this.data_inicial = data_inicial;
 	}
+	
 	
 	@Override
 	public int hashCode() {

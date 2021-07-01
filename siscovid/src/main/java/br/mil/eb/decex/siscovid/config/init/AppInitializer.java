@@ -5,6 +5,7 @@ import javax.servlet.Filter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import br.mil.eb.decex.siscovid.config.JPAConfig;
 import br.mil.eb.decex.siscovid.config.WebConfig;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -12,7 +13,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		
-		return null;
+		return new Class<?>[] {JPAConfig.class};
 	}
 
 	@Override

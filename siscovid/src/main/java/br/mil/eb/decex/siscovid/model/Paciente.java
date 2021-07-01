@@ -1,13 +1,15 @@
 package br.mil.eb.decex.siscovid.model;
 
+import java.io.Serializable;
+
+import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import br.mil.eb.decex.siscovid.enumerated.TipoPaciente;
 
-public class Paciente extends Pessoa{
+@Embeddable
+public class Paciente implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -15,9 +17,9 @@ public class Paciente extends Pessoa{
 	@Enumerated(EnumType.STRING)
 	public TipoPaciente tipoPaciente;
 	
-	@ManyToOne
-	@JoinColumn(name = "codigo_infectado")
-	private Infectado infectado;	
+//	@ManyToOne
+//	@JoinColumn(name = "codigo_infectado")
+//	private Infectado infectado;	
 		
 		
 	public TipoPaciente getTipoPaciente() {
@@ -27,15 +29,6 @@ public class Paciente extends Pessoa{
 	public void setTipoPaciente(TipoPaciente tipoPaciente) {
 		this.tipoPaciente = tipoPaciente;
 	}
-
-	public Infectado getInfectado() {
-		return infectado;
-	}
-
-	public void setInfectado(Infectado infectado) {
-		this.infectado = infectado;
-	}
-
 		
 }
 

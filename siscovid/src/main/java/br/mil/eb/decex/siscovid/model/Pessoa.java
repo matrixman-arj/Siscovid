@@ -11,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -18,7 +20,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import br.mil.eb.decex.siscovid.enumerated.PostoGraduacao;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "pessoa")
 public class Pessoa implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -38,8 +40,7 @@ public class Pessoa implements Serializable {
 	
 	@Enumerated(EnumType.STRING)
 	private PostoGraduacao posto;
-			
-	@Enumerated(EnumType.STRING)
+		
 	private OrganizacaoMilitar om;
 	
 	@NotBlank(message = "E-mail é obrigatório")	
@@ -51,6 +52,10 @@ public class Pessoa implements Serializable {
 	
 	@Embedded
 	private Paciente paciente;
+	
+	@ManyToOne
+	@JoinColumn(name = "codigo_infectado")
+	private Infectado infectado;
 	
 	
 	public long getCodigo() {
@@ -132,7 +137,14 @@ public class Pessoa implements Serializable {
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
-	
+		
+	public Infectado getInfectado() {
+		return infectado;
+	}
+
+	public void setInfectado(Infectado infectado) {
+		this.infectado = infectado;
+	}
 
 	public Boolean getAtivo() {
 		return ativo;
