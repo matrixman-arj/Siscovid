@@ -60,31 +60,29 @@
 	
 			<div class="row">
 				
-				<div class="form-group  col-sm-4">
+				<div class="form-group  col-sm-3">
 					<label for="posto">Posto/Graduação</label>
 					<select id="posto" class="form-control" >
 	                    <option value="">Selecione o posto</option>
-<!-- 	                    <option th:each="posto : ${postos}" th:value="${}" th:text="${}">Cel</option> -->
+	                    <option th:each="posto : ${postos}" th:value="${posto}" th:text="${posto.descricao}">Cel</option>
 	                </select>
 				</div>
 				
-				<div class="form-group  col-sm-4">
+				<div class="form-group  col-sm-5">
 					<label for="om">OM</label>
 					<select id="om" class="form-control" >
 	                    <option value="">Selecione a OM</option>
-<!-- 	                    <option th:each="om : ${oms}" th:value="${}" th:text="${}">Cel</option> -->
+	                    <option th:each="om : ${organizacoesMilitares}" th:value="${om.codigo}" th:text="${om.sigla}">Cel</option>
 	                </select>
 				</div>
 				
 				<div class="form-group  col-sm-4  bw-required" siscovid:classforerror="perfil">
 					<label class="control-label">Perfil</label> 
 					<div>
-						<th:block>
+						<th:block th:each="perfil : ${perfis}">
 							<div class="radio  radio-inline">
-								<input type="radio" th:id="|id_${perfil}|" class="js-radio-perfil"> 
-								<label class="control-label" th:for="|id_${perfil}|" ><span style="margin-right: 25px;">Homologador</span></label>
-								<label class="control-label" th:for="|id_${perfil}|" ><span style="margin-right: 25px;">Usuário</span></label>
-								<label class="control-label" th:for="|id_${perfil}|" ><span style="margin-right: 25px;">Administrador</span></label>
+								<input th:id="|id_${perfil}|" type="radio" th:value="${perfil}" name="perfil" class="js-radio-perfil">								
+								<label th:for="|id_${perfil}|" th:text="${perfil.descricao}"><span style="margin-right: 25px;">Administrador</span></label>
 							</div>
 						</th:block>
 					</div>

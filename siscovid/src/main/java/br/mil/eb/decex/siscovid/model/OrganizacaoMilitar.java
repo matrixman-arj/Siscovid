@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "organizacao_militar")
+@Table(name = "om")
 public class OrganizacaoMilitar implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -23,8 +23,10 @@ public class OrganizacaoMilitar implements Serializable {
 	private String sigla;
 	private String descricao;
 	
-	@Column(name = "om_pai")
+	@Column(name = "om_pai_codigo")
 	private OrganizacaoMilitar omPai;
+	
+	private OrganizacaoMilitar secao;
 	
 	private int ordem;
 		
@@ -49,12 +51,19 @@ public class OrganizacaoMilitar implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+		
 	public OrganizacaoMilitar getOmPai() {
 		return omPai;
 	}
 	public void setOmPai(OrganizacaoMilitar omPai) {
 		this.omPai = omPai;
+	}
+	
+	public OrganizacaoMilitar getSecao() {
+		return secao;
+	}
+	public void setSecao(OrganizacaoMilitar secao) {
+		this.secao = secao;
 	}
 	
 	public int getOrdem() {
