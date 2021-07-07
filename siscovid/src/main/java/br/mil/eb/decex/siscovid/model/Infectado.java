@@ -2,7 +2,6 @@ package br.mil.eb.decex.siscovid.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +10,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import br.mil.eb.decex.siscovid.enumerated.LocalConvalescenca;
 import br.mil.eb.decex.siscovid.enumerated.Status;
@@ -24,11 +26,12 @@ public class Infectado implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long codigo;
 	
-	@OneToMany(mappedBy = "infectado")	
-	private List<Pessoa> pessoas;
+	@ManyToOne
+	@JoinColumn(name = "codigo_pessoa")
+	private Pessoa pessoa;
 	
 	@Enumerated(EnumType.STRING)
 	private Status status;
@@ -37,6 +40,7 @@ public class Infectado implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private LocalConvalescenca localConvelescenca;
 	
+	@DateTimeFormat
 	private LocalDateTime data_inicial;
 	
 	
@@ -45,13 +49,13 @@ public class Infectado implements Serializable {
 	}
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
-	}	
-		
-	public List<Pessoa> getPessoas() {
-		return pessoas;
+	}		
+	
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
-	public void setPessoas(List<Pessoa> pessoas) {
-		this.pessoas = pessoas;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 	
 	public Status getStatus() {

@@ -11,41 +11,42 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.mil.eb.decex.siscovid.enumerated.Perfil;
 import br.mil.eb.decex.siscovid.enumerated.PostoGraduacao;
+import br.mil.eb.decex.siscovid.enumerated.Status;
+import br.mil.eb.decex.siscovid.enumerated.TipoPaciente;
 import br.mil.eb.decex.siscovid.model.Pessoa;
 import br.mil.eb.decex.siscovid.repository.OMs;
+import br.mil.eb.decex.siscovid.repository.Pessoas;
 
 @Controller
-public class UsuariosController {
-	
+public class PacientesController {
+		
 	@Autowired
 	private OMs oms;
 	
-	@RequestMapping("/usuarios/novo")
+	@Autowired
+	private Pessoas pessoas;
+	
+	@RequestMapping("/pacientes/novo")
 	public ModelAndView novo(Pessoa pessoa) {
-		ModelAndView mv = new ModelAndView("usuario/CadastroUsuario");
+		ModelAndView mv = new ModelAndView("paciente/CadastroPaciente");
 		mv.addObject("postos", PostoGraduacao.values());
 		mv.addObject("organizacoesMilitares", oms.findAll());
-		mv.addObject("perfis", Perfil.values());
+		mv.addObject("tipos", TipoPaciente.values());
+		mv.addObject("status", Status.values());
+		mv.addObject("pessoas", pessoas.findAll());
 		return mv;
 	}
 	
-	@RequestMapping(value= "/usuarios/novo", method = RequestMethod.POST)
+	@RequestMapping(value= "/pacientes/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Pessoa pessoa, BindingResult result, Model model, RedirectAttributes attributes) {
 //		if (result.hasErrors()) {
-//			model.addAttribute(usuario);
-//			return "usuario/CadastroUsuario";
-//			
+//			model.addAttribute(pessoa);
+//			return "pessoa/CadastroPessoa";
+			
 //		}
-		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso! ");
-		System.out.println(">>> Nome de guerra: " + pessoa.getNomeGuerra());
-		System.out.println("Nome: " + pessoa.getNome());
-		System.out.println("OM: " + pessoa.getOm());
-		System.out.println("Posto: " + pessoa.getPosto());
-		System.out.println("Perfil: " + pessoa.getUsuario().getPerfil());
-		return new ModelAndView("redirect:/usuarios/novo");		
+		attributes.addFlashAttribute("mensagem", "Paciente salvo com sucesso! ");
+		return new ModelAndView("redirect:/pacientes/novo");		
 	}
-	
 	
 }

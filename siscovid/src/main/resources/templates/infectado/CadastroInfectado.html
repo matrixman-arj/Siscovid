@@ -15,7 +15,7 @@
 	<div class="page-header">
 		<div class="container-fluid">
 			<h1>
-				Cadastro de infectados
+				Cadastro de casos
 			</h1>
 		</div>
 	</div>
@@ -31,15 +31,15 @@
 		
 			<div class="row">
 				<div class="col-sm-3 form-group">
-					<label for="pessoa">Pessoa</label>
+					<label for="paciente">Paciente</label>
 					<div class="sc-field-action">
-						<select id="pessoa" class="form-control">
-							<option value="">Selecione a pessoa</option>
-							<option value="1">João das Coves</option>
+						<select id="paciente" class="form-control" th:field="*{pessoa}">
+							<option value="">Selecione o paciente</option>							
+							<option th:each="pessoa : ${pessoas}" th:value="${pessoa.codigo}" th:text="${pessoa.posto.descricao + ' - ' + pessoa.nomeGuerra}">2º Sgt - Vanilton</option>
 						</select>
 						
 						<div class="sc-field-action__icon">
-							<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoPessoa">
+							<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoPaciente">
 								<i class="glyphicon glyphicon-plus-sign sc-glyphicon-large"></i>
 							</a>
 						</div>
@@ -54,7 +54,7 @@
 		</form>
 	</div>
 	
-	<div th:replace="pessoa/CadastroRapidoPessoa :: modal"></div>
+	<div th:replace="paciente/CadastroRapidoPaciente :: modal"></div>
 
 </section>
 	

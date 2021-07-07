@@ -2,9 +2,9 @@ package br.mil.eb.decex.siscovid.enumerated;
 
 public enum Perfil {
 	
-	HOMOLOGADOR("Auditório"),
-	GERENTE("Gerente"),
 	ADMINISTRADOR("Administrador"),
+	GERENTE("Gerente"),
+	HOMOLOGADOR("Homologador"),
 	USUARIO("Usuário");	
 	
 	private String descricao;

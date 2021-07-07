@@ -2,7 +2,7 @@ package br.mil.eb.decex.siscovid.enumerated;
 
 public enum Status {
 	
-	CNV("convalescença"),
+	CNV("Convalescença"),
 	ENTUBADO("Entubado"),
 	RECUPERADO("Recuperado"),
 	OBITO("Óbito");

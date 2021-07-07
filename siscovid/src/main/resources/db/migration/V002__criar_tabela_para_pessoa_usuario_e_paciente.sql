@@ -11,6 +11,9 @@ CREATE TABLE pessoa (
 	infectado_codigo bigint,
 	om_codigo bigint,
 	antiguidade integer,
+	ativo boolean,
+	email character varying(255),
+	status character varying(255),
 	
 	CONSTRAINT pessoa_pkey PRIMARY KEY (codigo),
 	

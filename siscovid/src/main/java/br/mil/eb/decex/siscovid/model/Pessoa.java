@@ -11,8 +11,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -26,7 +24,7 @@ public class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long codigo;
 	
 	@NotBlank(message = "O campo nome é obrigatório! ")
@@ -39,8 +37,10 @@ public class Pessoa implements Serializable {
 	private String identidade;
 	
 	@Enumerated(EnumType.STRING)
+	@Column(name = "posto_graduacao")
 	private PostoGraduacao posto;
-		
+	
+	@Column(name = "om_codigo")
 	private OrganizacaoMilitar om;
 	
 	@NotBlank(message = "E-mail é obrigatório")	
@@ -53,9 +53,9 @@ public class Pessoa implements Serializable {
 	@Embedded
 	private Paciente paciente;
 	
-	@ManyToOne
-	@JoinColumn(name = "codigo_infectado")
-	private Infectado infectado;
+//	@ManyToOne
+//	@JoinColumn(name = "codigo_infectado")
+//	private Infectado infectado;
 	
 	
 	public long getCodigo() {
@@ -138,25 +138,7 @@ public class Pessoa implements Serializable {
 		this.paciente = paciente;
 	}
 		
-	public Infectado getInfectado() {
-		return infectado;
-	}
-
-	public void setInfectado(Infectado infectado) {
-		this.infectado = infectado;
-	}
-
-	public Boolean getAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(Boolean ativo) {
-		this.ativo = ativo;
-	}
-
-	private Boolean ativo;
-	
-
+		
 	@Override
 	public int hashCode() {
 		return Objects.hash(codigo);

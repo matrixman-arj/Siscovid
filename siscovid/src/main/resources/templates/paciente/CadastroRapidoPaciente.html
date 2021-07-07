@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+
+<body>	
+	<div class="modal fade" id="modalCadastroRapidoPaciente" tabindex="-1" role="dialog" th:fragment="modal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">
+	        	<span aria-hidden="true">&times;</span>
+	        </button>
+	        <h4 class="modal-title" id="myModalLabel">Cadastro de paciente</h4>
+	      </div>
+	      <div class="modal-body">
+	      
+	      	<form method="POST" th:object="${infectado}" class="form-horizontal" th:action="@{/pessoas/novo}">
+	      	
+	      		<div class="form-group">
+	      		
+	      			<label class="col-sm-3 control-label" for="identidadePaciente">Identidade:</label>
+	      			<div class="col-sm-9">
+	      				<input id="identidadePaciente" type="text" class="form-control" th:field="*{pessoa.identidade}">
+	      			</div>
+	      		</div>
+	      		
+	      		<div class="form-group">	
+	      			<label class="col-sm-3 control-label" for="nomePaciente">Nome Completo:</label>
+	      			<div class="col-sm-9">
+	      				<input id="nomePaciente" type="text" class="form-control" th:field="*{pessoa.nome}">
+	      			</div>
+	      		</div>
+	      		
+	      		<div class="form-group">	
+	      			<label class="col-sm-3 control-label" for="nomeGuerraPaciente">Nome de guerra:</label>
+	      			<div class="col-sm-9">
+	      				<input id="nomeGuerraPaciente" type="text" class="form-control" th:field="*{pessoa.nomeGuerra}">
+	      			</div>
+	      		</div>
+	      		
+	      		<div class="form-group">	
+	      			<label class="col-sm-3 control-label" for="emailPaciente">E-mail:</label>
+	      			<div class="col-sm-9">
+	      				<input id="emailPaciente" type="text" class="form-control" th:field="*{pessoa.email}">
+	      			</div>
+	      		</div>
+	      										
+				<div class="form-group">
+					<div>
+					<label class="col-sm-3 control-label" for="posto">Posto/Graduação:</label>
+					<select class="col-sm-3 control-label" id="posto" style="margin-left: 15px;" th:field="*{pessoa.posto}">
+	                    <option value="">Escolha o posto</option>
+						<option th:each="posto : ${postos}" th:value="${posto}" th:text="${posto.descricao}">Cel</option>
+	                </select>
+	                
+	                <label class="col-sm-2 control-label" for="om" style="margin-left: 18px;">OM:</label>
+					<select class="col-sm-3 control-label" id="om" th:field="*{pessoa.om}">
+	                    <option value="">Escolha a OM</option>
+	                    <option th:each="om : ${organizacoesMilitares}" th:value="${om.codigo}" th:text="${om.sigla}">DECEx</option>
+	                </select>
+	                </div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="tipo" style="margin-left: 15px; text-align: left;">Tipo de paciente:</label>
+					<select class="col-sm-3 control-label" id="tipo" th:field="*{pessoa.paciente.tipoPaciente}">
+	                    <option value="">Escolha o tipo</option>
+	                    <option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo.descricao}">Cel</option>
+	                </select>
+	            </div>    
+	                 
+				<div class="form-group">
+					<label class="col-sm-3 control-label" for="status" style="margin-left: 2px;">Status:</label>
+	                 <th:block th:each="status : ${status}">
+						<div class="radio  radio-inline" style="margin-left: 15px;">
+							<input th:id="|id_${status}|" type="radio" th:value="${status}" th:field="*{pessoa.paciente.status}" class="js-radio-perfil">								
+							<label th:for="|id_${status}|" th:text="${status.descricao}"><span>Recuperado</span></label>
+						</div>
+					 </th:block>
+				</div>
+	                
+					      		
+	      	</form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary">Salvar</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+</body>
+	  
+</html>

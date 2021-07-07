@@ -8,7 +8,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 import br.mil.eb.decex.siscovid.enumerated.Perfil;
-import br.mil.eb.decex.siscovid.enumerated.Status;
 
 @Embeddable
 public class Usuario implements Serializable{
@@ -22,9 +21,8 @@ public class Usuario implements Serializable{
 	
 	@Column(name = "confirmacao_senha")
 	private String confirmacaoSenha;
-	
-	@Enumerated(EnumType.STRING)
-	private Status status;
+			
+	private Boolean ativo;
 
 	public Perfil getPerfil() {
 		return perfil;
@@ -49,13 +47,15 @@ public class Usuario implements Serializable{
 	public void setConfirmacaoSenha(String confirmacaoSenha) {
 		this.confirmacaoSenha = confirmacaoSenha;
 	}
-
-	public Status getStatus() {
-		return status;
+	
+	public Boolean getAtivo() {
+		return ativo;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
+	
+	
 		
 }

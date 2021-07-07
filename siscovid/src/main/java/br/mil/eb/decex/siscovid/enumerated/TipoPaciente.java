@@ -7,14 +7,14 @@ public enum TipoPaciente {
 	ALUNO("Aluno"),
 	Instrutor("Instrutor");
 	
-	private String descrcao;
+	private String descricao;
 	
 	TipoPaciente(String descricao) {
-		this.descrcao = descricao;		
+		this.descricao = descricao;		
 	}
 
-	public String getDescrcao() {
-		return descrcao;
+	public String getDescricao() {
+		return descricao;
 	}
 	
 }
