@@ -1,21 +1,26 @@
 package br.mil.eb.decex.siscovid.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "om")
-public class OrganizacaoMilitar implements Serializable {
-	
+public class OrganizacaoMilitar implements Serializable{
+		
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
@@ -23,10 +28,13 @@ public class OrganizacaoMilitar implements Serializable {
 	private String sigla;
 	private String descricao;
 	
-	@Column(name = "om_pai_codigo")
+	@ManyToOne
+	@JoinColumn(name = "om_pai_codigo")
 	private OrganizacaoMilitar omPai;
 	
-	private OrganizacaoMilitar secao;
+	@OneToMany(mappedBy = "omPai", cascade = {CascadeType.ALL})
+    private List<OrganizacaoMilitar> secao = new ArrayList<>();
+	
 	
 	private int ordem;
 		
@@ -58,11 +66,11 @@ public class OrganizacaoMilitar implements Serializable {
 	public void setOmPai(OrganizacaoMilitar omPai) {
 		this.omPai = omPai;
 	}
-	
-	public OrganizacaoMilitar getSecao() {
+			
+	public List<OrganizacaoMilitar> getSecao() {
 		return secao;
 	}
-	public void setSecao(OrganizacaoMilitar secao) {
+	public void setSecao(List<OrganizacaoMilitar> secao) {
 		this.secao = secao;
 	}
 	
