@@ -15,12 +15,16 @@ import br.mil.eb.decex.siscovid.enumerated.Perfil;
 import br.mil.eb.decex.siscovid.enumerated.PostoGraduacao;
 import br.mil.eb.decex.siscovid.model.Pessoa;
 import br.mil.eb.decex.siscovid.repository.OMs;
+import br.mil.eb.decex.siscovid.service.CadastroUsuarioService;
 
 @Controller
 public class UsuariosController {
 	
 	@Autowired
 	private OMs oms;
+	
+	@Autowired
+	private CadastroUsuarioService cadastroUsuarioService;
 	
 	@RequestMapping("/usuarios/novo")
 	public ModelAndView novo(Pessoa pessoa) {
@@ -33,17 +37,13 @@ public class UsuariosController {
 	
 	@RequestMapping(value= "/usuarios/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Pessoa pessoa, BindingResult result, Model model, RedirectAttributes attributes) {
-//		if (result.hasErrors()) {
-//			model.addAttribute(usuario);
-//			return "usuario/CadastroUsuario";
+//		if (result.hasErrors()) {		
+//			return novo (pessoa);
 //			
 //		}
+		
+		cadastroUsuarioService.salvar(pessoa);
 		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso! ");
-		System.out.println(">>> Nome de guerra: " + pessoa.getNomeGuerra());
-		System.out.println("Nome: " + pessoa.getNome());
-		System.out.println("OM: " + pessoa.getOm());
-		System.out.println("Posto: " + pessoa.getPosto());
-		System.out.println("Perfil: " + pessoa.getUsuario().getPerfil());
 		return new ModelAndView("redirect:/usuarios/novo");		
 	}
 	
