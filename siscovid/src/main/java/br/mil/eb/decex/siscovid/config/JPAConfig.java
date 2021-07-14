@@ -40,7 +40,7 @@ public class JPAConfig {
 		adapter.setDatabase(Database.POSTGRESQL);
 		adapter.setShowSql(true);
 		adapter.setGenerateDdl(false);
-//		adapter.setDatabasePlatform("org.hibernate.dialect.postgreSQLDialect");
+		adapter.setDatabasePlatform("org.hibernate.dialect.PostgreSQLDialect");
 		
 		return adapter;
 	}

@@ -20,6 +20,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import br.mil.eb.decex.siscovid.controller.UsuariosController;
+import br.mil.eb.decex.siscovid.converter.OrganizacaoMilitarConverter;
 import br.mil.eb.decex.siscovid.converter.PacienteConverter;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
@@ -77,6 +78,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	public FormattingConversionService mvcConversionService() {
 		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
 		conversionService.addConverter(new PacienteConverter());
+		conversionService.addConverter(new OrganizacaoMilitarConverter());
 		
 		return conversionService;
 	}

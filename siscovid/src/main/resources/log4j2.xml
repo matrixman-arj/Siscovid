@@ -10,7 +10,7 @@
 	<Loggers>
 		<Logger name="br.mi.eb.decex.siscovid" level="debug"/>
 		
-		<Logger name="org.hibernate.sql" level="debug"/>
+		<Logger name="org.hibernate" level="debug"/>
 	
 		<Root level="info">
 			<AppenderRef ref="Console" />

@@ -37,10 +37,10 @@ public class UsuariosController {
 	
 	@RequestMapping(value= "/usuarios/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Pessoa pessoa, BindingResult result, Model model, RedirectAttributes attributes) {
-//		if (result.hasErrors()) {		
-//			return novo (pessoa);
-//			
-//		}
+		if (result.hasErrors()) {		
+			return novo (pessoa);
+			
+		}
 		
 		cadastroUsuarioService.salvar(pessoa);
 		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso! ");

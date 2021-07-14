@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -26,7 +27,8 @@ public class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "PESSOA_CODIGO_GENERATOR",sequenceName = "PESSOA_CODIGO_SEQ",allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "PESSOA_CODIGO_GENERATOR")
 	private long codigo;
 	
 	@NotBlank(message = "O campo nome é obrigatório! ")
