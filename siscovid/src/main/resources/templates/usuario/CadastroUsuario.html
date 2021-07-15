@@ -34,48 +34,42 @@
 		
 			<div class="row">
 							
-				<div class="col-sm-3">
-					<div class="form-group">
-						<label for="identidade">Identidade</label>
-						<input id="identidade" type="text" class="form-control" th:field="*{identidade}"/>
-					</div>
+				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('identidade')} ? has-error">					
+					<label for="identidade" class="control-label">Identidade</label>
+					<input id="identidade" type="text" class="form-control" th:field="*{identidade}"/>					
 				</div>
 				
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label for="nome">Nome Completo</label>
-						<input id="nome" type="text" class="form-control" th:field="*{nome}"/>
-					</div>
+				<div class="col-sm-6 form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">					
+					<label for="nome" class="control-label">Nome Completo</label>
+					<input id="nome" type="text" class="form-control" th:field="*{nome}"/>					
 				</div>
 				
-				<div class="col-sm-3">
-					<div class="form-group">
-						<label for="nomeGuerra">Nome de guerra</label>
-						<input id="nomeGuerra" type="text" class="form-control" th:field="*{nomeGuerra}"/>
-					</div>
+				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('nomeGuerra')} ? has-error">					
+					<label for="nomeGuerra" class="control-label">Nome de guerra</label>
+					<input id="nomeGuerra" type="text" class="form-control" th:field="*{nomeGuerra}"/>					
 				</div>
 				
 			</div>
 	
 			<div class="row">
 				
-				<div class="form-group  col-sm-3">
-					<label for="posto">Posto/Graduação</label>
+				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('posto')} ? has-error">
+					<label for="posto" class="control-label">Posto/Graduação</label>
 					<select id="posto" class="form-control" th:field="*{posto}" >
 	                    <option value="">Selecione o posto</option>
 	                    <option th:each="posto : ${postos}" th:value="${posto}" th:text="${posto.descricao}">Cel</option>
 	                </select>
 				</div>
 				
-				<div class="form-group  col-sm-5">
-					<label for="om">OM</label>
+				<div class="col-sm-5 form-group" th:classappend="${#fields.hasErrors('om')} ? has-error">
+					<label for="om" class="control-label">OM</label>
 					<select id="om" class="form-control" th:field="*{om}">
 	                    <option value="">Selecione a OM</option>
 	                    <option th:each="om : ${organizacoesMilitares}" th:value="${om.codigo}" th:text="${om.sigla}">DECEx</option>
 	                </select>
 				</div>
 				
-				<div class="form-group  col-sm-4  siscovid-required" siscovid:classforerror="perfil">
+				<div class="col-sm-4 form-group siscovid-required" th:classappend="${#fields.hasErrors('usuario.perfil')} ? has-error">
 					<label class="control-label">Perfil</label> 
 					<div>
 						<th:block th:each="perfil : ${perfis}">
@@ -90,24 +84,22 @@
 				
 			<div class="row">
 				
-				<div class="col-sm-3">
-					<div class="form-group">
-						<label for="email">E-mail</label>
-						<input id="email" type="text" class="form-control" th:field="*{email}"/>
-					</div>
+				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('email')} ? has-error">					
+					<label for="email" class="control-label">E-mail</label>
+					<input id="email" type="text" class="form-control" th:field="*{email}"/>					
 				</div>
 			
-				<div class="form-group  col-sm-3" siscovid:classforerror="senha" >
+				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('usuario.senha')} ? has-error">
 					<label for="senha" class="control-label">Senha</label> 
 					<input type="password" class="form-control" id="senha" th:field="*{usuario.senha}"/>
 				</div>
 				
-				<div class="form-group  col-sm-3" siscovid:classforerror="confirmacaoSenha">
+				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('usuario.confirmacaoSenha')} ? has-error">
 					<label for="confirmacaoSenha" class="control-label">Confirmação de senha</label> 
 					<input type="password" class="form-control" id="confirmacaoSenha" th:field="*{usuario.confirmacaoSenha}"/>
 				</div>
 				
-				<div class="form-group  col-sm-3">
+				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('usuario.ativo')} ? has-error">
 					<label class="control-label">Acesso</label>
 					<div>
 						<input type="checkbox" class="js-status" data-size="small" data-off-color="danger" 

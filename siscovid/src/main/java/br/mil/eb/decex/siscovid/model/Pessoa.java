@@ -15,10 +15,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.mil.eb.decex.siscovid.enumerated.PostoGraduacao;
+import br.mil.eb.decex.siscovid.validation.IDT;
 
 @Entity
 @Table(name = "pessoa")
@@ -38,18 +41,22 @@ public class Pessoa implements Serializable {
 	@Column(name = "nome_guerra")
 	private String nomeGuerra;
 	
+	@IDT
+	@NotBlank(message = "Identidade é obrigatória")
 	private String identidade;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "posto_graduacao")
+	@NotNull(message = "O posto é obrigatório")
 	private PostoGraduacao posto;
 			
 	@ManyToOne
     @JoinColumn(name = "om_codigo")
+	@NotNull(message = "Nome é obrigatório")
     private OrganizacaoMilitar om;
 	
 	@NotBlank(message = "E-mail é obrigatório")	
-	//@Email(message = "E-mail inválido")
+	@Email(message = "E-mail inválido")
 	private String email;
 	
 	@Embedded

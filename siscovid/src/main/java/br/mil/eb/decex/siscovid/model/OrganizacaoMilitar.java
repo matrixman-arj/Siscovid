@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "om")
 public class OrganizacaoMilitar implements Serializable{
@@ -27,7 +29,10 @@ public class OrganizacaoMilitar implements Serializable{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "OM_CODIGO_GENERATOR")
 	private Long codigo;
 	
+	@NotBlank(message = "O campo sigla é obrigatório")
 	private String sigla;
+	
+	@NotBlank(message = "O campo descrição é obrigatório")
 	private String descricao;
 	
 	@ManyToOne

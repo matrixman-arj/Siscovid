@@ -5,11 +5,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.mil.eb.decex.siscovid.model.OrganizacaoMilitar;
+import br.mil.eb.decex.siscovid.model.Pessoa;
 
 @Repository
-public interface OMs extends JpaRepository<OrganizacaoMilitar, Long>{
+public interface Pacientes extends JpaRepository<Pessoa, Long> {
 	
-	public Optional<OrganizacaoMilitar> findBySigla(String sigla);
+	public Optional<Pessoa> findByIdentidade(String identidade);
 
 }

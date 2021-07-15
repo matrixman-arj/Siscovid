@@ -20,10 +20,26 @@
 		          </a>
 		      
 		          <ul class="decex-menu__list  decex-menu__list--sublist">
-		            <li class="decex-menu__item  decex-menu__item--link"><a href="cadastro-produto.html">Cadastro de produto</a></li>
-		            <li class="decex-menu__item  decex-menu__item--link  is-active"><a href="pesquisa-produtos.html">Pesquisa de produtos</a></li>
+		          
+		            <li class="decex-menu__item  decex-menu__item--link" siscovid:menu="@{/usuarios.*}">
+		            	<a th:href="@{/usuarios/novo}">Cadastro de usuários</a>
+		            </li>
+		            	
+		             <li class="decex-menu__item  decex-menu__item--link" siscovid:menu="@{/pacientes.*}">
+		            	<a th:href="@{/pacientes/novo}">Cadastro de pacientes</a>
+		            </li>
+		            
+		            <li class="decex-menu__item  decex-menu__item--link" siscovid:menu="@{/oms.*}">
+		            	<a th:href="@{/oms/nova}">Cadastro de Organizações Militares</a>
+		            </li>
+		            
+		             <li class="decex-menu__item  decex-menu__item--link" siscovid:menu="@{/infectados.*}">
+		            	<a th:href="@{/infectados/novo}">Cadastro de casos</a>
+		            </li>
+		            
 		            <li class="decex-menu__item  decex-menu__item--link"><a href="tabela-sem-dados.html">Tabela sem dados</a></li>
 		          </ul>
+		          
 		        </li>
 
 		        <li class="decex-menu__item  is-expanded">

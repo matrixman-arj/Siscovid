@@ -17,6 +17,8 @@ import br.mil.eb.decex.siscovid.enumerated.TipoPaciente;
 import br.mil.eb.decex.siscovid.model.Pessoa;
 import br.mil.eb.decex.siscovid.repository.OMs;
 import br.mil.eb.decex.siscovid.repository.Pessoas;
+import br.mil.eb.decex.siscovid.service.CadastroUsuarioService;
+import br.mil.eb.decex.siscovid.service.exception.IdentidadeJaCadastradaException;
 
 @Controller
 public class PacientesController {
@@ -26,6 +28,9 @@ public class PacientesController {
 	
 	@Autowired
 	private Pessoas pessoas;
+	
+	@Autowired
+	private CadastroUsuarioService cadastroUsuarioService;
 	
 	@RequestMapping("/pacientes/novo")
 	public ModelAndView novo(Pessoa pessoa) {
@@ -40,13 +45,22 @@ public class PacientesController {
 	
 	@RequestMapping(value= "/pacientes/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Pessoa pessoa, BindingResult result, Model model, RedirectAttributes attributes) {
-//		if (result.hasErrors()) {
-//			model.addAttribute(pessoa);
-//			return "pessoa/CadastroPessoa";
+		if (result.hasErrors()) {
+			model.addAttribute(pessoa);
+			return novo(pessoa);
 			
-//		}
+		}
+		
+		try {
+			cadastroUsuarioService.salvar(pessoa);
+		} catch (IdentidadeJaCadastradaException e) {
+			result.rejectValue("identidade", e.getMessage(), e.getMessage());
+			return novo(pessoa);
+			
+		}
 		attributes.addFlashAttribute("mensagem", "Paciente salvo com sucesso! ");
-		return new ModelAndView("redirect:/pacientes/novo");		
+		return new ModelAndView("redirect:/pacientes/novo");
+		
 	}
 	
 }

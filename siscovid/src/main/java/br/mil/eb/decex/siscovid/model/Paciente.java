@@ -8,6 +8,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import br.mil.eb.decex.siscovid.enumerated.Status;
 import br.mil.eb.decex.siscovid.enumerated.TipoPaciente;
@@ -20,12 +21,13 @@ public class Paciente implements Serializable{
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_paciente")
+	@NotNull(message = "O campo tipo é obrigatório")
 	public TipoPaciente tipoPaciente;
 	
 	@OneToMany(mappedBy = "pessoa")	
 	private List<Infectado> infectados;
 	
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING)	
 	private Status status;		
 		
 	public TipoPaciente getTipoPaciente() {

@@ -14,7 +14,11 @@
 	      </div>
 	      <div class="modal-body">
 	      
+	      	<th:block th:include="fragments/MensagemSucesso"></th:block>
+	      
 	      	<form method="POST" th:object="${infectado}" class="form-horizontal" th:action="@{/pessoas/novo}">
+	      		
+	      		<th:block th:include="fragments/MensagensErroValidacao"></th:block>
 	      	
 	      		<div class="form-group">
 	      		
