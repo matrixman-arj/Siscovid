@@ -57,6 +57,10 @@
 	<div th:replace="paciente/CadastroRapidoPaciente :: modal"></div>
 
 </section>
+
+<th:block layout:fragment="javascript-extra">
+	<script th:src="@{/javascripts/paciente.cadastro-rapido.js}"></script>
+</th:block>
 	
 </body>
 </html>
