@@ -3,7 +3,7 @@ $(function() {
 	var modal = $('#modalCadastroRapidoPaciente');
 	var botaoSalvar = modal.find('.js-modal-cadastro-pessoa-salvar-btn');
 	var form = modal.find('form');
-	form.on('submit', function(event) {event.preventDefault() });	
+	form.on('submit', function(event) {event.preDefault() });
 	var url = form.attr('action');
 	var inputIdentidadePaciente = $('#identidadePaciente');
 	var inputNomePaciente = $('#nomePaciente');
@@ -12,8 +12,8 @@ $(function() {
 	var selectPostoPaciente = $('#postoPaciente');
 	var selectOmPaciente = $('#omPaciente');
 	var selectTipoPaciente = $('#tipoPaciente');
-	var radioStatusPaciente = $('#status');
-
+	var containerMensagemErro = $('.js-mensagem-cadastro-rapido-pessoa');
+	
 	
 	modal.on('shown.bs.modal', onModalShow);
 	modal.on('hide.bs.modal', onModalClose);
@@ -21,22 +21,21 @@ $(function() {
 	
 	function onModalShow() {
 		inputIdentidadePaciente.focus();
+		containerMensagemErro.addClass('hidden');
+		form.find('.form-group').removeClass('has-error');
 	}
 	
-	function onModalClose() {
-		inputIdentidadePaciente.val('');
-		inputNomePaciente.val('');
-		inputNomeGuerraPaciente.val('');
-		inputEmailPaciente.val('');
-		selectPostoPaciente.val('');
-		selectOmPaciente.val('');
-		selectTipoPaciente.val('');
-		radioStatusPaciente.val('');
-		
+	function onModalClose(){
+	 inputIdentidadePaciente.val('');
+	 inputNomePaciente.val('');
+	 inputNomeGuerraPaciente.val('');
+	 inputEmailPaciente.val('');
+	 selectPostoPaciente.val('');
+	 selectOmPaciente.val('');
+	 selectTipoPaciente.val('');
 	}
 	
-	function onBotaoSalvarClick() {
-		
+	function onBotaoSalvarClick(){
 		var identidadePaciente = inputIdentidadePaciente.val().trim();
 		var nomePaciente = inputNomePaciente.val().trim();
 		var nomeGuerraPaciente = inputNomeGuerraPaciente.val().trim();
@@ -44,15 +43,37 @@ $(function() {
 		var postoPaciente = selectPostoPaciente.val().trim();
 		var omPaciente = selectOmPaciente.val().trim();
 		var tipoPaciente = selectTipoPaciente.val().trim();
-		var status = radioStatusPaciente.val().trim();
 		
-		console.log('Identidade: ', identidadePaciente);
-		console.log('Nome: ', nomePaciente);
-		console.log('Nome de Guerra: ', nomeGuerraPaciente);
-		console.log('Email: ', emailPaciente);
-		console.log('Posto: ', postoPaciente);
-		console.log('OM: ', omPaciente);
-		console.log('Status: ', status);
+		$.ajax({
+			url: url,
+			method: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({identidade: identidadePaciente,
+								  nome: nomePaciente,
+								  nomeGuerra: nomeGuerraPaciente,
+								  email: emailPaciente,
+								  posto: postoPaciente,
+								  om: {codigo: omPaciente},
+								  tipoPaciente: tipoPaciente 
+}),
+			error: onErroSalvandoPaciente,
+			success: onPessoaSalva
+		});
+	}
+	
+	function onErroSalvandoPaciente(obj){
+		var mensagemErro = obj.responseText;
+		containerMensagemErro.removeClass('hidden');
+		containerMensagemErro.html('<span>' + mensagemErro + '</span>');
+		form.find('.form-group').addClass('has-error');
 		
 	}
+	
+	function onPessoaSalva(paciente){
+		var comboPaciente = $('#paciente');
+		comboPaciente.append('<option value =' + paciente.codigo + '>' + paciente.nomeGuerra + '</option>');
+		comboPaciente.val(paciente.codigo);
+		modal.modal('hide');
+	}
+		
 });

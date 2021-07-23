@@ -69,12 +69,12 @@
 	                </select>
 				</div>
 				
-				<div class="col-sm-4 form-group siscovid-required" th:classappend="${#fields.hasErrors('usuario.perfil')} ? has-error">
+				<div class="col-sm-4 form-group siscovid-required" th:classappend="${#fields.hasErrors('perfil')} ? has-error">
 					<label class="control-label">Perfil</label> 
 					<div>
 						<th:block th:each="perfil : ${perfis}">
 							<div class="radio  radio-inline">
-								<input th:id="|id_${perfil}|" type="radio" th:value="${perfil}" th:field="*{usuario.perfil}" class="js-radio-perfil">								
+								<input th:id="|id_${perfil}|" type="radio" th:value="${perfil}" th:field="*{perfil}" class="js-radio-perfil">								
 								<label th:for="|id_${perfil}|" th:text="${perfil.descricao}"><span style="margin-right: 25px;">Administrador</span></label>
 							</div>
 						</th:block>
@@ -89,21 +89,21 @@
 					<input id="email" type="text" class="form-control" th:field="*{email}"/>					
 				</div>
 			
-				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('usuario.senha')} ? has-error">
+				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('senha')} ? has-error">
 					<label for="senha" class="control-label">Senha</label> 
-					<input type="password" class="form-control" id="senha" th:field="*{usuario.senha}"/>
+					<input type="password" class="form-control" id="senha" th:field="*{senha}"/>
 				</div>
 				
-				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('usuario.confirmacaoSenha')} ? has-error">
+				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('confirmacaoSenha')} ? has-error">
 					<label for="confirmacaoSenha" class="control-label">Confirmação de senha</label> 
-					<input type="password" class="form-control" id="confirmacaoSenha" th:field="*{usuario.confirmacaoSenha}"/>
+					<input type="password" class="form-control" id="confirmacaoSenha" th:field="*{confirmacaoSenha}"/>
 				</div>
 				
-				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('usuario.ativo')} ? has-error">
+				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('ativo')} ? has-error">
 					<label class="control-label">Acesso</label>
 					<div>
 						<input type="checkbox" class="js-status" data-size="small" data-off-color="danger" 
-							data-on-text="Liberado" data-off-text="Bloqueado" th:field="*{usuario.ativo}"/>
+							data-on-text="Liberado" data-off-text="Bloqueado" th:field="*{ativo}"/>
 					</div>
 				</div>
 								

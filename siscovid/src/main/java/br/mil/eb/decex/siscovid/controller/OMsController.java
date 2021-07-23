@@ -17,7 +17,7 @@ import br.mil.eb.decex.siscovid.service.CadastroOMService;
 import br.mil.eb.decex.siscovid.service.exception.OMJaCadastradaException;
 
 @Controller
-public class OmsController {
+public class OMsController {
 		
 	@Autowired
 	private OMs oms;
@@ -52,6 +52,6 @@ public class OmsController {
 		attributes.addFlashAttribute("mensagem", "Organização Militar salva com sucesso! ");
 		return new ModelAndView("redirect:/oms/nova");
 		
-	}
+	}	
 	
 }

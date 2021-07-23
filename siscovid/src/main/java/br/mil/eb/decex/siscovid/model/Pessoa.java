@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -20,7 +19,9 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import br.mil.eb.decex.siscovid.enumerated.Perfil;
 import br.mil.eb.decex.siscovid.enumerated.PostoGraduacao;
+import br.mil.eb.decex.siscovid.enumerated.TipoPaciente;
 import br.mil.eb.decex.siscovid.validation.IDT;
 
 @Entity
@@ -52,18 +53,32 @@ public class Pessoa implements Serializable {
 			
 	@ManyToOne
     @JoinColumn(name = "om_codigo")
-	@NotNull(message = "Nome é obrigatório")
+	@NotNull(message = "A OM é obrigatória")
+	
     private OrganizacaoMilitar om;
 	
 	@NotBlank(message = "E-mail é obrigatório")	
 	@Email(message = "E-mail inválido")
 	private String email;
 	
-	@Embedded
-	private Usuario usuario;
+	@Enumerated(EnumType.STRING)
+//	@NotNull(message = "O campo perfil é obrigatório")
+	private Perfil perfil;
 	
-	@Embedded
-	private Paciente paciente;
+//	@NotBlank(message = "O campo senha é obrigatório")
+	private String senha;	
+	
+//	@NotBlank(message = "O campo confirmaçãode senha é obrigatório")
+	@Column(name = "confirmacao_senha")
+	private String confirmacaoSenha;
+	
+//	@NotBlank(message = "O campo acesso é obrigatório")
+	private Boolean ativo;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "tipo_paciente")
+//	@NotNull(message = "O campo tipo é obrigatório")
+	public TipoPaciente tipoPaciente;
 	
 //	@ManyToOne
 //	@JoinColumn(name = "codigo_infectado")
@@ -109,7 +124,8 @@ public class Pessoa implements Serializable {
 	public PostoGraduacao getPosto() {
 		return posto;
 	}
-
+	
+	
 	public void setPosto(PostoGraduacao posto) {
 		this.posto = posto;
 	}
@@ -118,7 +134,8 @@ public class Pessoa implements Serializable {
 	public OrganizacaoMilitar getOm() {
 		return om;
 	}
-
+	
+	
 	public void setOm(OrganizacaoMilitar om) {
 		this.om = om;
 	}
@@ -130,27 +147,50 @@ public class Pessoa implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}		
+		
+	public Perfil getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
 	}
 	
 
-	public Usuario getUsuario() {
-		return usuario;
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 	
 
-	public Paciente getPaciente() {
-		return paciente;
+	public String getConfirmacaoSenha() {
+		return confirmacaoSenha;
 	}
 
-	public void setPaciente(Paciente paciente) {
-		this.paciente = paciente;
+	public void setConfirmacaoSenha(String confirmacaoSenha) {
+		this.confirmacaoSenha = confirmacaoSenha;
 	}
-		
-		
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public TipoPaciente getTipoPaciente() {
+		return tipoPaciente;
+	}
+
+	public void setTipoPaciente(TipoPaciente tipoPaciente) {
+		this.tipoPaciente = tipoPaciente;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(codigo);

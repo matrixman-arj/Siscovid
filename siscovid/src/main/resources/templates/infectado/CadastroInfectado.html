@@ -44,9 +44,58 @@
 							</a>
 						</div>
 					</div>
-				</div>			
+				</div>
+			
+				
+			
+				<div class="col-sm-3 form-group" >
+					<label for="ums">Unidade Militar de Saúde</label>
+					<div class="sc-field-action">
+						<select id="ums" class="form-control" th:field="*{ums}">
+							<option value="">Selecione uma UMS</option>							
+							<option th:each="ums : ${umss}" th:value="${ums.codigo}" th:text="${ums.sigla}">HCE</option>
+						</select>
+						
+						<div class="sc-field-action__icon">
+							<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoUMS">
+								<i class="glyphicon glyphicon-plus-sign sc-glyphicon-large"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+			
+				
+			
+				<div class="col-sm-3 form-group">
+					<label for="ucs">Unidade Civil de Saúde</label>
+					<div class="sc-field-action">
+						<select id="ucs" class="form-control" th:field="*{ucs}">
+							<option value="">Selecione uma UCS</option>							
+							<option th:each="ucs : ${ucss}" th:value="${ucs.codigo}" th:text="${ucs.sigla}">UNIMED</option>
+						</select>
+						
+						<div class="sc-field-action__icon">
+							<a href="#" data-toggle="modal" data-target="#modalCadastroRapidoUCS">
+								<i class="glyphicon glyphicon-plus-sign sc-glyphicon-large"></i>
+							</a>
+						</div>
+					</div>
+				</div>				
 			</div>
-							
+			
+			<div class="row">
+				<div class="col-sm-9 form-group" th:classappend="${#fields.hasErrors('localConvalescenca')} ? has-error">
+					<label class="control-label">Convalescença</label> 
+					<div>												
+						<th:block th:each="local : ${locais}">
+							<div class="radio  radio-inline" >
+								<input th:id="|id_${locais}|" type="radio" th:value="${local}" th:field="*{localConvalescenca}" class="js-radio-local">								
+								<label th:for="|id_${locais}|" th:text="${local.descricao}"><span style="margin-right: 25px;">Residencia</span></label>
+							</div>
+						</th:block>
+					</div>
+				</div>
+			</div>							
 				
 			<div class="form-group">			
 				<button class="btn  btn-primary" type="submit">Salvar</button>
@@ -54,11 +103,15 @@
 		</form>
 	</div>
 	
+	<div th:replace="unidadeSaude/CadastroRapidoUMS :: modal"></div>
+	<div th:replace="unidadeSaude/CadastroRapidoUCS :: modal"></div>
 	<div th:replace="paciente/CadastroRapidoPaciente :: modal"></div>
 
 </section>
 
-<th:block layout:fragment="javascript-extra">
+<th:block layout:fragment="javascript-extra">	
+	<script th:src="@{/javascripts/ums.cadastro-rapido.js}"></script>
+	<script th:src="@{/javascripts/ucs.cadastro-rapido.js}"></script>	
 	<script th:src="@{/javascripts/paciente.cadastro-rapido.js}"></script>
 </th:block>
 	

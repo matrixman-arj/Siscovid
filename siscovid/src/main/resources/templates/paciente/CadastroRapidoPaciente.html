@@ -13,8 +13,10 @@
 	        <h4 class="modal-title" id="myModalLabel">Cadastro de paciente</h4>
 	      </div>
 	      <div class="modal-body">	      	
-	      
-	      	<form class="form-horizontal" th:action="@{/pessoas}">	      		
+	      	
+	      	<div class="alert alert-danger hidden js-mensagem-cadastro-rapido-pessoa" role="alert"></div>
+	      	
+	      	<form class="form-horizontal" th:action="@{/pacientes}">	      		
 	      	
 	      		<div class="form-group">
 	      		
@@ -47,13 +49,13 @@
 	      										
 				<div class="form-group">
 					<div>
-					<label class="col-sm-3 control-label" for="posto">Posto/Graduação:</label>
+					<label class="col-sm-3 control-label" for="postoPaciente">Posto/Graduação:</label>
 					<select class="col-sm-3 control-label" id="postoPaciente" style="margin-left: 15px;">
 	                    <option value="">Escolha o posto</option>
 						<option th:each="posto : ${postos}" th:value="${posto}" th:text="${posto.descricao}">Cel</option>
 	                </select>
 	                
-	                <label class="col-sm-2 control-label" for="om" style="margin-left: 18px;">OM:</label>
+	                <label class="col-sm-2 control-label" for="omPaciente" style="margin-left: 18px;">OM:</label>
 					<select class="col-sm-3 control-label" id="omPaciente">
 	                    <option value="">Escolha a OM</option>
 	                    <option th:each="om : ${organizacoesMilitares}" th:value="${om.codigo}" th:text="${om.sigla}">DECEx</option>
@@ -62,24 +64,12 @@
 				</div>
 				
 				<div class="form-group">
-					<label class="col-sm-3 control-label" for="tipo" style="margin-left: 15px; text-align: left;">Tipo de paciente:</label>
+					<label class="col-sm-3 control-label" for="tipoPaciente" style="margin-left: 15px; text-align: left;">Tipo de paciente:</label>
 					<select class="col-sm-3 control-label" id="tipoPaciente">
 	                    <option value="">Escolha o tipo</option>
 	                    <option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo.descricao}">Cel</option>
 	                </select>
-	            </div>    
-	                 
-				<div class="form-group">
-					<label class="col-sm-3 control-label" for="status" style="margin-left: 2px;">Status:</label>
-	                 <th:block th:each="status : ${status}" >
-						<div class="radio  radio-inline"  style="margin-left: 15px;">
-							<input th:id="|id_${status}|" type="radio" id="status" th:value="${status}" class="js-radio-perfil">								
-							<label th:for="|id_${status}|" th:text="${status.descricao}"><span>Recuperado</span></label>
-						</div>
-					 </th:block>
-				</div>
-	                
-					      		
+	              		
 	      	</form>
 	      </div>
 	      <div class="modal-footer">

@@ -27,7 +27,7 @@ public class UsuariosController {
 	private CadastroUsuarioService cadastroUsuarioService;
 	
 	@RequestMapping("/usuarios/novo")
-	public ModelAndView novo(Pessoa pessoa) {
+	public ModelAndView novo(Pessoa usuario) {
 		ModelAndView mv = new ModelAndView("usuario/CadastroUsuario");
 		mv.addObject("postos", PostoGraduacao.values());
 		mv.addObject("organizacoesMilitares", oms.findAll());
@@ -36,13 +36,13 @@ public class UsuariosController {
 	}
 	
 	@RequestMapping(value= "/usuarios/novo", method = RequestMethod.POST)
-	public ModelAndView cadastrar(@Valid Pessoa pessoa, BindingResult result, Model model, RedirectAttributes attributes) {
+	public ModelAndView cadastrar(@Valid Pessoa usuario, BindingResult result, Model model, RedirectAttributes attributes) {
 		if (result.hasErrors()) {		
-			return novo (pessoa);
+			return novo (usuario);
 			
 		}
 		
-		cadastroUsuarioService.salvar(pessoa);
+		cadastroUsuarioService.salvar(usuario);
 		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso! ");
 		return new ModelAndView("redirect:/usuarios/novo");		
 	}

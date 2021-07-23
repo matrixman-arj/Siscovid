@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -40,7 +42,15 @@ public class Infectado implements Serializable {
 	
 	@Column(name = "local_convalescenca")
 	@Enumerated(EnumType.STRING)
-	private LocalConvalescenca localConvelescenca;
+	private LocalConvalescenca localConvalescenca;
+	
+	@ManyToOne
+	@JoinColumn(name = "codigo_ums")
+	private UnidadeMilitarSaude ums;
+	
+	@ManyToOne
+	@JoinColumn(name = "codigo_ucs")
+	private UnidadeCivilSaude ucs;
 	
 	@DateTimeFormat
 	private LocalDateTime data_inicial;
@@ -67,18 +77,44 @@ public class Infectado implements Serializable {
 		this.status = status;
 	}
 	
-	public LocalConvalescenca getLocalConvelescenca() {
-		return localConvelescenca;
+	public LocalConvalescenca getLocalConvalescenca() {
+		return localConvalescenca;
 	}
-	public void setLocalConvelescenca(LocalConvalescenca localConvelescenca) {
-		this.localConvelescenca = localConvelescenca;
-	}
+	public void setLocalConvalescenca(LocalConvalescenca localConvalescenca) {
+		this.localConvalescenca = localConvalescenca;
+	}	
 		
+	public UnidadeMilitarSaude getUms() {
+		return ums;
+	}
+	public void setUms(UnidadeMilitarSaude ums) {
+		this.ums = ums;
+	}
+	
+	public UnidadeCivilSaude getUcs() {
+		return ucs;
+	}
+	public void setUcs(UnidadeCivilSaude ucs) {
+		this.ucs = ucs;
+	}
+	
 	public LocalDateTime getData_inicial() {
 		return data_inicial;
 	}
 	public void setData_inicial(LocalDateTime data_inicial) {
 		this.data_inicial = data_inicial;
+	}
+	
+	@PrePersist
+	private void prePersist() {		
+		status = Status.CNV;
+		data_inicial = LocalDateTime.now();
+	}
+
+	@PreUpdate
+	private void prePersistUpdate() {
+		data_inicial = LocalDateTime.now();
+		
 	}
 	
 	
@@ -104,10 +140,6 @@ public class Infectado implements Serializable {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	}
-	
-	
-	
-	
+	}	
 
 }

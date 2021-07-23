@@ -3,8 +3,8 @@ package br.mil.eb.decex.siscovid.enumerated;
 public enum LocalConvalescenca {
 	
 	RESIDENCIA("Residência"),
-	OMDS("Organização Militar de Saúde"),
-	OCS("Organização Civil de Saúde");	
+	UMS("Unidade Militar de Saúde"),
+	UCS("Unidade Civil de Saúde");	
 	
 private String descricao;
 	

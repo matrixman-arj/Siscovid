@@ -74,26 +74,15 @@
 			</div>
 			
 			<div class="row">
-				<div class="col-sm-4 form-group" th:classappend="${#fields.hasErrors('paciente.tipoPaciente')} ? has-error">
+				<div class="col-sm-4 form-group" th:classappend="${#fields.hasErrors('tipoPaciente')} ? has-error">
 					<label for="tipo">Tipo</label>
-					<select id="tipo" class="form-control" th:field="*{paciente.tipoPaciente}" >
+					<select id="tipo" class="form-control" th:field="*{tipoPaciente}" >
 	                    <option value="">Selecione o tipo do paciente</option>
  	                    <option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo.descricao}">Cel</option>
 	                </select>
 				</div>
 				
-				<div class="col-sm-4 form-group" th:classappend="${#fields.hasErrors('paciente.status')} ? has-error">
-					<label class="control-label">Status</label> 
-					<div>
-						<th:block th:each="status : ${status}">
-							<div class="radio  radio-inline">
-								<input th:id="|id_${status}|" type="radio" th:value="${status}" th:field="*{paciente.status}" class="js-radio-perfil">								
-								<label th:for="|id_${status}|" th:text="${status.descricao}"><span style="margin-right: 25px;">Recuperado</span></label>
-							</div>
-						</th:block>
-					</div>
-				</div>
-						
+				
 			</div>							
 				
 			<button class="btn  btn-primary" type="submit">Salvar</button>

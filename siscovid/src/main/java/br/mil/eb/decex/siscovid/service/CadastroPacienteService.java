@@ -12,7 +12,7 @@ import br.mil.eb.decex.siscovid.repository.Pessoas;
 import br.mil.eb.decex.siscovid.service.exception.IdentidadeJaCadastradaException;
 
 @Service
-public class CadastroUsuarioService {
+public class CadastroPacienteService {
 	
 	@Autowired
 	private Pessoas pessoas;
@@ -21,13 +21,13 @@ public class CadastroUsuarioService {
 	private Pacientes pacientes;
 	
 	@Transactional
-	public Pessoa salvar(Pessoa pessoa) {
-		Optional<Pessoa> pessoaOptional = pacientes.findByIdentidade(pessoa.getIdentidade());
+	public Pessoa salvar(Pessoa paciente) {
+		Optional<Pessoa> pessoaOptional = pacientes.findByIdentidade(paciente.getIdentidade());
 		if(pessoaOptional.isPresent()) {
 			throw new IdentidadeJaCadastradaException("Identidade já cadastrada!");
 		}
 		
-		return pessoas.saveAndFlush(pessoa);
+		return pessoas.saveAndFlush(paciente);
 	}
 
 }
