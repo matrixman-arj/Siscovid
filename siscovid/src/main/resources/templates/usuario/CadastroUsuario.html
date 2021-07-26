@@ -2,12 +2,14 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layout/layoutPadrao}">
+	  layout:decorate="~{layout/layoutPadrao}"
+	  xmlns:siscovid="http://siscovid.decex.eb.mil.br">
 
 <head>
 	<title>Cadastro de usuário</title>
 	
 	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}"/>
+	<link rel="stylesheet" th:href="@{/stylesheets/vendors/upload.min.css}"/>
 </head>
 
 <body>
@@ -26,25 +28,24 @@
 
 	<div class="container-fluid">
 		
-		<th:block th:include="fragments/MensagemSucesso"></th:block>
 	
 		<form method="POST" th:object="${pessoa}" class="form-vertical  js-form-loading">
-		
-			<th:block th:include="fragments/MensagensErroValidacao"></th:block>
+					
+			<siscovid:message/>
 		
 			<div class="row">
 							
-				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('identidade')} ? has-error">					
+				<div class="col-sm-3 form-group" siscovid:classforerror="identidade">					
 					<label for="identidade" class="control-label">Identidade</label>
 					<input id="identidade" type="text" class="form-control" th:field="*{identidade}"/>					
 				</div>
 				
-				<div class="col-sm-6 form-group" th:classappend="${#fields.hasErrors('nome')} ? has-error">					
+				<div class="col-sm-6 form-group" siscovid:classforerror="nome">					
 					<label for="nome" class="control-label">Nome Completo</label>
 					<input id="nome" type="text" class="form-control" th:field="*{nome}"/>					
 				</div>
 				
-				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('nomeGuerra')} ? has-error">					
+				<div class="col-sm-3 form-group" siscovid:classforerror="nomeGuerra">					
 					<label for="nomeGuerra" class="control-label">Nome de guerra</label>
 					<input id="nomeGuerra" type="text" class="form-control" th:field="*{nomeGuerra}"/>					
 				</div>
@@ -53,7 +54,7 @@
 	
 			<div class="row">
 				
-				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('posto')} ? has-error">
+				<div class="col-sm-3 form-group" siscovid:classforerror="posto">
 					<label for="posto" class="control-label">Posto/Graduação</label>
 					<select id="posto" class="form-control" th:field="*{posto}" >
 	                    <option value="">Selecione o posto</option>
@@ -61,7 +62,7 @@
 	                </select>
 				</div>
 				
-				<div class="col-sm-5 form-group" th:classappend="${#fields.hasErrors('om')} ? has-error">
+				<div class="col-sm-5 form-group" siscovid:classforerror="om">
 					<label for="om" class="control-label">OM</label>
 					<select id="om" class="form-control" th:field="*{om}">
 	                    <option value="">Selecione a OM</option>
@@ -69,7 +70,7 @@
 	                </select>
 				</div>
 				
-				<div class="col-sm-4 form-group siscovid-required" th:classappend="${#fields.hasErrors('perfil')} ? has-error">
+				<div class="col-sm-4 form-group siscovid-required" siscovid:classforerror="perfil">
 					<label class="control-label">Perfil</label> 
 					<div>
 						<th:block th:each="perfil : ${perfis}">
@@ -84,29 +85,43 @@
 				
 			<div class="row">
 				
-				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('email')} ? has-error">					
+				<div class="col-sm-3 form-group" siscovid:classforerror="email">					
 					<label for="email" class="control-label">E-mail</label>
 					<input id="email" type="text" class="form-control" th:field="*{email}"/>					
 				</div>
 			
-				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('senha')} ? has-error">
+				<div class="col-sm-3 form-group" siscovid:classforerror="senha">
 					<label for="senha" class="control-label">Senha</label> 
 					<input type="password" class="form-control" id="senha" th:field="*{senha}"/>
 				</div>
 				
-				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('confirmacaoSenha')} ? has-error">
+				<div class="col-sm-3 form-group" siscovid:classforerror="confirmacaoSenha">
 					<label for="confirmacaoSenha" class="control-label">Confirmação de senha</label> 
 					<input type="password" class="form-control" id="confirmacaoSenha" th:field="*{confirmacaoSenha}"/>
 				</div>
 				
-				<div class="col-sm-3 form-group" th:classappend="${#fields.hasErrors('ativo')} ? has-error">
+				<div class="col-sm-3 form-group" siscovid:classforerror="ativo">
 					<label class="control-label">Acesso</label>
 					<div>
 						<input type="checkbox" class="js-status" data-size="small" data-off-color="danger" 
 							data-on-text="Liberado" data-off-text="Bloqueado" th:field="*{ativo}"/>
 					</div>
+				</div>								
+			</div>
+			
+			<div class="row">
+				<div class="form-group col-sm-12">
+					<input type="hidden" th:field="*{foto}">
+					<input type="hidden" th:field="*{contentType}">
+					
+					<label class="control-label">Foto:</label>
+					
+					<div id="upload-drop" class="sc-upload">
+						<i class="glyphicon glyphicon-cloud-upload"></i>
+						<span>Arraste a foto aqui ou</span>
+						<a class="sc-upload-form-file">selecione <input id="upload-select" type="file" accept=".jpg,.jpeg,.png "/></a>
+					</div>
 				</div>
-								
 			</div>				
 			
 			<div class="form-group">			
@@ -114,13 +129,34 @@
 			</div>	
 		</form>
 	</div>
-
+	
+	
 </section>
 
 <th:block layout:fragment="javascript-extra">
 	<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/upload.min.js}"></script>
+	
 	<script>
+		
+	$(function() {
+		var settings = {
+				type: 'json',
+				filelimit: 1,
+				allow: '*.(jpg|jpeg|png)',
+				action: '/siscovid/fotos',
+				complete: function(resposta) {
+					$('input[name=foto]').val(resposta.nome);
+					$('input[name=contentType]').val(resposta.contentType);
+				}
+		};
+		
+		UIkit.uploadSelect($('#upload-select'), settings);
+		UIkit.uploadDrop($('#upload-drop'), settings);
+		
 		$('.js-status').bootstrapSwitch();
+	});
 	</script>
 </th:block>
 

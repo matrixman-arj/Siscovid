@@ -28,6 +28,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import br.mil.eb.decex.siscovid.controller.UsuariosController;
 import br.mil.eb.decex.siscovid.converter.OrganizacaoMilitarConverter;
 import br.mil.eb.decex.siscovid.converter.PacienteConverter;
+import br.mil.eb.decex.siscovid.thymeleaf.SiscovidDialect;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
@@ -60,7 +61,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		engine.setTemplateResolver(templateResolver());
 		
 		engine.addDialect(new LayoutDialect());
-//		engine.addDialect(new SisgecDialect());
+		engine.addDialect(new SiscovidDialect());
 //		engine.addDialect(new DataAttributeDialect());
 //		engine.addDialect(new SpringSecurityDialect());
 		return engine;

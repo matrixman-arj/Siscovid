@@ -80,6 +80,11 @@ public class Pessoa implements Serializable {
 //	@NotNull(message = "O campo tipo é obrigatório")
 	public TipoPaciente tipoPaciente;
 	
+	private String foto;
+	
+	@Column(name = "content_type")
+	private String contentType;
+	
 //	@ManyToOne
 //	@JoinColumn(name = "codigo_infectado")
 //	private Infectado infectado;
@@ -189,6 +194,22 @@ public class Pessoa implements Serializable {
 
 	public void setTipoPaciente(TipoPaciente tipoPaciente) {
 		this.tipoPaciente = tipoPaciente;
+	}	
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
 
 	@Override
