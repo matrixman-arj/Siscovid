@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,9 +16,11 @@ import br.mil.eb.decex.siscovid.enumerated.Perfil;
 import br.mil.eb.decex.siscovid.enumerated.PostoGraduacao;
 import br.mil.eb.decex.siscovid.model.Pessoa;
 import br.mil.eb.decex.siscovid.repository.OMs;
+import br.mil.eb.decex.siscovid.repository.Usuarios;
 import br.mil.eb.decex.siscovid.service.CadastroUsuarioService;
 
 @Controller
+@RequestMapping("/usuarios")
 public class UsuariosController {
 	
 	@Autowired
@@ -26,7 +29,10 @@ public class UsuariosController {
 	@Autowired
 	private CadastroUsuarioService cadastroUsuarioService;
 	
-	@RequestMapping("/usuarios/novo")
+	@Autowired
+	private Usuarios usuarios;
+	
+	@RequestMapping("/novo")
 	public ModelAndView novo(Pessoa usuario) {
 		ModelAndView mv = new ModelAndView("usuario/CadastroUsuario");
 		mv.addObject("postos", PostoGraduacao.values());
@@ -35,7 +41,7 @@ public class UsuariosController {
 		return mv;
 	}
 	
-	@RequestMapping(value= "/usuarios/novo", method = RequestMethod.POST)
+	@RequestMapping(value= "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Pessoa usuario, BindingResult result, Model model, RedirectAttributes attributes) {
 		if (result.hasErrors()) {		
 			return novo (usuario);
@@ -47,5 +53,15 @@ public class UsuariosController {
 		return new ModelAndView("redirect:/usuarios/novo");		
 	}
 	
-	
+	@GetMapping
+	public ModelAndView pesquisar() {
+		ModelAndView mv = new ModelAndView("usuario/PesquisaUsuarios");
+		mv.addObject("postos", PostoGraduacao.values());
+		mv.addObject("grupos", Perfil.values() );
+		mv.addObject("organizacoesMilitares", oms.findAll());
+		
+		mv.addObject("usuarios", usuarios.findAll());
+		return mv;
+				
+	}
 }

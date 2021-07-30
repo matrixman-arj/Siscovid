@@ -3,7 +3,7 @@
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{layout/layoutPadrao}"
-	  xmlns:siscovid="http://siscovid.decex.eb.mil.br">
+	  xmlns: ="http://siscovid.decex.eb.mil.br">
 
 <head>
 	<title>Cadastro de usuário</title>
@@ -20,9 +20,20 @@
 
 	<div class="page-header">
 		<div class="container-fluid">
-			<h1>
-				Cadastro de usuário
-			</h1>
+			<div class="row">						
+				<div class="col-sm-10">
+					<h1>
+						Cadastro de usuário
+					</h1>
+				</div>
+				<div class="col-xs-2">					
+					<div class="marajoara-page-header-controls">
+						<a class="btn btn-default" th:href="@{/usuarios}">
+							<i class="glyphicon glyphicon-search"></i> <span class="hidden-xs hidden-sm">Pesquisar</span>
+						</a>
+					</div>						
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -35,17 +46,17 @@
 		
 			<div class="row">
 							
-				<div class="col-sm-3 form-group" siscovid:classforerror="identidade">					
+				<div class="col-sm-3 form-group sc-required" siscovid:classforerror="identidade">					
 					<label for="identidade" class="control-label">Identidade</label>
 					<input id="identidade" type="text" class="form-control" th:field="*{identidade}"/>					
 				</div>
 				
-				<div class="col-sm-6 form-group" siscovid:classforerror="nome">					
+				<div class="col-sm-6 form-group sc-required" siscovid:classforerror="nome">					
 					<label for="nome" class="control-label">Nome Completo</label>
 					<input id="nome" type="text" class="form-control" th:field="*{nome}"/>					
 				</div>
 				
-				<div class="col-sm-3 form-group" siscovid:classforerror="nomeGuerra">					
+				<div class="col-sm-3 form-group sc-required" siscovid:classforerror="nomeGuerra">					
 					<label for="nomeGuerra" class="control-label">Nome de guerra</label>
 					<input id="nomeGuerra" type="text" class="form-control" th:field="*{nomeGuerra}"/>					
 				</div>
@@ -54,7 +65,7 @@
 	
 			<div class="row">
 				
-				<div class="col-sm-3 form-group" siscovid:classforerror="posto">
+				<div class="col-sm-3 form-group sc-required" siscovid:classforerror="posto">
 					<label for="posto" class="control-label">Posto/Graduação</label>
 					<select id="posto" class="form-control" th:field="*{posto}" >
 	                    <option value="">Selecione o posto</option>
@@ -62,7 +73,7 @@
 	                </select>
 				</div>
 				
-				<div class="col-sm-5 form-group" siscovid:classforerror="om">
+				<div class="col-sm-5 form-group sc-required" siscovid:classforerror="om">
 					<label for="om" class="control-label">OM</label>
 					<select id="om" class="form-control" th:field="*{om}">
 	                    <option value="">Selecione a OM</option>
@@ -70,7 +81,7 @@
 	                </select>
 				</div>
 				
-				<div class="col-sm-4 form-group siscovid-required" siscovid:classforerror="perfil">
+				<div class="col-sm-4 form-group sc-required" siscovid:classforerror="perfil">
 					<label class="control-label">Perfil</label> 
 					<div>
 						<th:block th:each="perfil : ${perfis}">
@@ -116,11 +127,13 @@
 					
 					<label class="control-label">Foto:</label>
 					
-					<div id="upload-drop" class="sc-upload">
-						<i class="glyphicon glyphicon-cloud-upload"></i>
-						<span>Arraste a foto aqui ou</span>
-						<a class="sc-upload-form-file">selecione <input id="upload-select" type="file" accept=".jpg,.jpeg,.png "/></a>
-					</div>
+					<div class="js-container-foto-usuario" th:attr="data-url-fotos=@{/fotos}">
+						<div id="upload-drop" class="sc-upload">
+							<i class="glyphicon glyphicon-cloud-upload"></i>
+							<span>Arraste a foto aqui ou</span>
+							<a class="sc-upload-form-file">selecione <input id="upload-select" type="file" accept=".jpg,.jpeg,.png "/></a>
+						</div>
+					</div>										
 				</div>
 			</div>				
 			
@@ -130,34 +143,20 @@
 		</form>
 	</div>
 	
-	
+	<th:block th:replace="/hbs/FotoUsuario"></th:block>
 </section>
 
 <th:block layout:fragment="javascript-extra">
 	<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
 	<script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
 	<script th:src="@{/javascripts/vendors/upload.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+	<script th:src="@{/javascripts/usuario.upload-foto.js}"></script>
 	
 	<script>
-		
-	$(function() {
-		var settings = {
-				type: 'json',
-				filelimit: 1,
-				allow: '*.(jpg|jpeg|png)',
-				action: '/siscovid/fotos',
-				complete: function(resposta) {
-					$('input[name=foto]').val(resposta.nome);
-					$('input[name=contentType]').val(resposta.contentType);
-				}
-		};
-		
-		UIkit.uploadSelect($('#upload-select'), settings);
-		UIkit.uploadDrop($('#upload-drop'), settings);
-		
 		$('.js-status').bootstrapSwitch();
-	});
-	</script>
+	</script>	
+	
 </th:block>
 
 </body>

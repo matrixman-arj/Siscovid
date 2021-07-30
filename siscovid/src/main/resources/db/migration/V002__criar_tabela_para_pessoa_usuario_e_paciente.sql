@@ -14,6 +14,8 @@ CREATE TABLE pessoa (
 	ativo boolean,
 	email character varying(255),
 	status character varying(255),
+	foto character varying(100),
+	content_type character varying(100),
 	
 	CONSTRAINT pessoa_pkey PRIMARY KEY (codigo),
 	
