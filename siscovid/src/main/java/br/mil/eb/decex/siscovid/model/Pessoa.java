@@ -14,10 +14,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.util.StringUtils;
 
 import br.mil.eb.decex.siscovid.enumerated.Perfil;
 import br.mil.eb.decex.siscovid.enumerated.PostoGraduacao;
@@ -84,6 +86,9 @@ public class Pessoa implements Serializable {
 	
 	@Column(name = "content_type")
 	private String contentType;
+	
+	@Transient
+	private boolean novaFoto;
 	
 //	@ManyToOne
 //	@JoinColumn(name = "codigo_infectado")
@@ -211,6 +216,18 @@ public class Pessoa implements Serializable {
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
+	
+	public boolean isNovaFoto() {
+		return novaFoto;
+	}
+
+	public void setNovaFoto(boolean novaFoto) {
+		this.novaFoto = novaFoto;
+	}
+	
+	public String getFotoOuMock() {
+		return !StringUtils.isEmpty(foto) ? foto : "usuario-mock.jpg";
+	}
 
 	@Override
 	public int hashCode() {
@@ -229,5 +246,5 @@ public class Pessoa implements Serializable {
 		Pessoa other = (Pessoa) obj;
 		return codigo == other.codigo;
 	}
-		
+
 }

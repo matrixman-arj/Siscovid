@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.mil.eb.decex.siscovid.storage.FotoStorage;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.name.Rename;
 
 public class FotoStorageLocal implements FotoStorage {
 	
@@ -63,6 +65,21 @@ public class FotoStorageLocal implements FotoStorage {
 		}
 	}
 	
+	@Override
+	public void salvar(String foto) {
+		try {
+			Files.move(this.localTemporario.resolve(foto), this.local.resolve(foto));
+		} catch (IOException e) {
+			throw new RuntimeException("Erro ao tentar mover foto para o destino final! ", e);
+		}	
+		
+		try {
+			Thumbnails.of(this.local.resolve(foto).toString()).size(50, 70).toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+		} catch (IOException e) {
+			throw new RuntimeException("Erro ao tentar gerar thumbnail", e);
+		}
+		
+	}
 	
 	private void criarPastas() {
 		try {
@@ -90,23 +107,15 @@ public class FotoStorageLocal implements FotoStorage {
 		return novoNome;
 	}
 
-	
-	
-//	@Override
-//	public void salvar(String foto) {
-//		try {
-//			Files.move(this.localTemporario.resolve(foto), this.local.resolve(foto));
-//		} catch (IOException e) {
-//			throw new RuntimeException("Erro ao tentar mover foto para o destino final! ", e);
-//		}	
+	@Override
+	public byte[] recuperarFoto(String nome) {
+		try {
+			return Files.readAllBytes(this.local.resolve(nome));			
+		} catch (IOException e) {
+			throw new RuntimeException("Erro lendo a foto", e );
+		}	
+	}
 		
-//		try {
-//			Thumbnails.of(this.local.resolve(foto).toString()).size(50, 70).toFiles(Rename.PREFIX_DOT_THUMBNAIL);
-//		} catch (IOException e) {
-//			throw new RuntimeException("Erro ao tentar gerar thumbnail", e);
-//		}
-		
-//	}
 	
 //	@Override
 //	public byte[] recuperar(String nome) {
@@ -123,14 +132,6 @@ public class FotoStorageLocal implements FotoStorage {
 //		return recuperar(THUMBNAIL_PREFIX + fotoCurso);
 //	}
 //	
-//	@Override
-//	public byte[] recuperarFoto(String nome) {
-//		try {
-//			return Files.readAllBytes(this.local.resolve(nome));			
-//		} catch (IOException e) {
-//			throw new RuntimeException("Erro lendo a foto", e );
-//		}	
-//	}
 //	
 //	@Override
 //	public void excluir(String foto) {
@@ -142,9 +143,6 @@ public class FotoStorageLocal implements FotoStorage {
 //		}
 //		
 //	}
-
-
-	
 
 		
 }

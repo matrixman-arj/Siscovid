@@ -33,16 +33,16 @@
 	</div>
 	
 	<div class="container-fluid">	
-		<form method="GET">		
+		<form method="GET" th:object="${usuarioFilter}">		
 			<div class="row">			
 				<div class="form-group col-sm-4">
 					<label class="control-label" for="identidade">Identidade</label>
-					<input type="text" class="form-control" id="identidade" autofocus="autofocus" />				
+					<input type="text" class="form-control" id="identidade" autofocus="autofocus" th:field="*{identidade}"/>				
 				</div>
 				
 				<div class="form-group col-sm-4">
 					<label for="posto" class="control-label">Posto</label>
-					<select id="posto" class="form-control">
+					<select id="posto" class="form-control" th:field="*{posto}">
 	                    <option value="">Selecione posto</option>
 	                    <option th:each="posto : ${postos}" th:value="${posto}" th:text="${posto.descricao}">DECEx</option>
 	                </select>
@@ -50,27 +50,27 @@
 				
 				<div class="form-group col-sm-4">
 					<label class="control-label" for="nomeGuerra">Nome de guerra</label>
-					<input type="text" class="form-control" id="nomeGuerra"/>				
+					<input type="text" class="form-control" id="nomeGuerra" th:field="*{nomeGuerra}"/>				
 				</div>
 			</div>
 			
 			<div class="row">	
-				<div class="form-group col-sm-4">
-					<label class="control-label" for="nome">Nome</label>
-					<input type="text" class="form-control" id="nome"/>				
-				</div>
+<!-- 				<div class="form-group col-sm-4"> -->
+<!-- 					<label class="control-label" for="nome">Nome</label> -->
+<!-- 					<input type="text" class="form-control" id="nome" th:field="*{nome}"/>				 -->
+<!-- 				</div> -->
 				
 				<div class="form-group col-sm-4">
 					<label for="om" class="control-label">OM</label>
-					<select id="om" class="form-control">
+					<select id="om" class="form-control" th:field="*{om}">
 	                    <option value="">Selecione a OM</option>
-	                    <option th:each="om : ${organizacoesMilitares}" th:value="${om.codigo}" th:text="${om.sigla}">DECEx</option>
+	                    <option th:each="om : ${organizacoesMilitares}" th:value="${om.codigo}" th:text="${om.sigla}" >DECEx</option>
 	                </select>
 				</div>
 				
 				<div class="form-group col-sm-4">
 					<label class="control-label" for="email">E-mail</label>
-					<input type="text" class="form-control" id="email" />				
+					<input type="text" class="form-control" id="email" th:field="*{email}"/>				
 				</div>
 			</div>
 			
@@ -78,9 +78,9 @@
 				<div class="form-group  col-sm-12">
 					<label class="control-label">Grupos</label> 
 					<div>
-						<th:block th:each="grupo : ${grupos}">
+						<th:block th:each="grupo : ${grupos}" >
 	  						<div class="checkbox  checkbox-inline"> 
-		    					<input type="checkbox" th:value="${grupo}" />
+		    					<input type="checkbox" th:value="${grupo}" th:field="*{perfil}"/>
 		    					<label th:for="grupo" th:text="${grupo.descricao}">Administrador</label>
 	    					</div>
 	    				</th:block>
@@ -108,6 +108,8 @@
 	            		<th class="talble-usuarios-col-idt">Identidade</th>
 	            		<th class="talble-usuarios-col-posto">Posto</th>
 	            		<th class="talble-usuarios-col-nomeGuerra">Nome de guerra</th>
+	            		<th class="talble-usuarios-col-om">OM</th>
+	            		
 	            			                	
 	                	<th class="talble-usuarios-col-grupo">Grupo</th>	                	
 	                 	<th class="table-col-acoes">Ações</th>
@@ -118,12 +120,12 @@
 					<tr th:each="usuario : ${usuarios}">
 						
 						<td class="text-center">
-							<img  th:src="@{/fotos/temp/1bd6547e-7c30-4e96-b3f4-4d109ee4d701_066953081-8.jpg}" class="img-responsive">
+							<img  th:src="@{/fotos/thumbnail.{foto}(foto=${usuario.fotoOuMock})}" class="img-responsive">
 						</td>
 						<td th:text="${usuario.identidade}">000.000.000-00</td>
 						<td th:text="${usuario.posto.descricao}">GEN_EXERCITO</td>
 						<td th:text="${usuario.nomeGuerra}">Vanilton</td>
-						
+						<td th:text="${usuario.om.sigla}">DECEx</td>
 						<td th:text="${usuario.perfil}">Administrador</td>
 						<td>
 							<a class="btn btn-link btn-xs" title="Editar">

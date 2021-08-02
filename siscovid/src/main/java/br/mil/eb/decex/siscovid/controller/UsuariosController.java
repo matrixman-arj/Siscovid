@@ -17,6 +17,7 @@ import br.mil.eb.decex.siscovid.enumerated.PostoGraduacao;
 import br.mil.eb.decex.siscovid.model.Pessoa;
 import br.mil.eb.decex.siscovid.repository.OMs;
 import br.mil.eb.decex.siscovid.repository.Usuarios;
+import br.mil.eb.decex.siscovid.repository.filter.UsuarioFilter;
 import br.mil.eb.decex.siscovid.service.CadastroUsuarioService;
 
 @Controller
@@ -54,13 +55,13 @@ public class UsuariosController {
 	}
 	
 	@GetMapping
-	public ModelAndView pesquisar() {
+	public ModelAndView pesquisar(UsuarioFilter usuarioFilter, BindingResult result) {
 		ModelAndView mv = new ModelAndView("usuario/PesquisaUsuarios");
 		mv.addObject("postos", PostoGraduacao.values());
 		mv.addObject("grupos", Perfil.values() );
 		mv.addObject("organizacoesMilitares", oms.findAll());
 		
-		mv.addObject("usuarios", usuarios.findAll());
+		mv.addObject("usuarios", usuarios.filtrar(usuarioFilter));
 		return mv;
 				
 	}

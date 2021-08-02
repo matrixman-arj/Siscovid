@@ -56,6 +56,10 @@
 	<!-- Jackson - JSON -->
 	<jackson-core.version>2.7.5</jackson-core.version>
 	
+	<!-- thumbnailator - Gerar Thumbnail -->
+	<!-- https://github.com/coobird/thumbnailator -->
+	<thumbnailator.version>0.4.8</thumbnailator.version>
+	
 	<maven.compiler.source> 1.8 </maven.compiler.source>
    	<maven.compiler.target> 1.8 </maven.compiler.target>
   </properties>
@@ -176,8 +180,15 @@
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-devtools</artifactId>
 		    <version>${devtools.version}</version>
-		</dependency>	
+		</dependency>
 		
+		<!-- thumbnailator - Gerar Thumbnail -->
+		<dependency>
+		    <groupId>net.coobird</groupId>
+		    <artifactId>thumbnailator</artifactId>
+		    <version>${thumbnailator.version}</version>
+		    <scope>compile</scope>
+		</dependency>		
   	
   	<!-- Servlet API -->
 	<dependency>

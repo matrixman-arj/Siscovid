@@ -33,11 +33,16 @@ public class FotosController {
 		return resultado;
 	}
 	
+	
 	@GetMapping("/temp/{nome:.*}")
 	public byte[] recuperarFotoTemporaria(@PathVariable String nome) {
 		return fotoStorage.recuperarFotoTemporaria(nome);
 	}
 	
+	@GetMapping("/{nome:.*}")
+	public byte[] recuperarFoto(@PathVariable String nome) {
+		return fotoStorage.recuperarFoto(nome);
+	}
 	
 //	@PostMapping
 //	public DeferredResult<FotoDTO> upload(@RequestParam("files[]") MultipartFile[] files) {

@@ -21,7 +21,7 @@ public class UsuarioSalvoEvent {
 		return !StringUtils.isEmpty(pessoa.getFoto());
 	}
 	
-//	public boolean isNovaFoto() {
-//		return pessoa.isNovaFoto();
-//	}
+	public boolean isNovaFoto() {
+		return pessoa.isNovaFoto();
+	}
 }
