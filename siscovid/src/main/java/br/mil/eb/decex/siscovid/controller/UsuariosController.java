@@ -3,6 +3,9 @@ package br.mil.eb.decex.siscovid.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,13 +58,15 @@ public class UsuariosController {
 	}
 	
 	@GetMapping
-	public ModelAndView pesquisar(UsuarioFilter usuarioFilter, BindingResult result) {
+	public ModelAndView pesquisar(UsuarioFilter usuarioFilter, BindingResult result, @PageableDefault(size = 2) Pageable pageable) {
 		ModelAndView mv = new ModelAndView("usuario/PesquisaUsuarios");
 		mv.addObject("postos", PostoGraduacao.values());
 		mv.addObject("grupos", Perfil.values() );
 		mv.addObject("organizacoesMilitares", oms.findAll());
 		
-		mv.addObject("usuarios", usuarios.filtrar(usuarioFilter));
+		Page<Pessoa> pagina = usuarios.filtrar(usuarioFilter, pageable);
+		mv.addObject("pagina", pagina);
+		
 		return mv;
 				
 	}

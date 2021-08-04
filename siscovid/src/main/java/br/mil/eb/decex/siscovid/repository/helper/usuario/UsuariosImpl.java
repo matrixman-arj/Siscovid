@@ -1,14 +1,16 @@
 package br.mil.eb.decex.siscovid.repository.helper.usuario;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
@@ -24,8 +26,29 @@ public class UsuariosImpl  implements UsuariosQueries{
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
-	public List<Pessoa> filtrar(UsuarioFilter filtro) {
+	public Page<Pessoa> filtrar(UsuarioFilter filtro, Pageable pageable) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Pessoa.class);
+		
+		int paginaAtual = pageable.getPageNumber();
+		int totalRegistrosPorPagina = pageable.getPageSize();
+		int primeiroRegistro = paginaAtual * totalRegistrosPorPagina;
+		
+		criteria.setFirstResult(primeiroRegistro);
+		criteria.setMaxResults(totalRegistrosPorPagina);
+		
+		adicionarFiltro(filtro, criteria);
+		
+		return new PageImpl<>(criteria.list(), pageable, total(filtro));
+	}
+	
+	private Long total(UsuarioFilter filtro) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Pessoa.class);
+		adicionarFiltro(filtro, criteria);
+		criteria.setProjection(Projections.rowCount());
+		return (Long) criteria.uniqueResult();
+	}
+
+	private void adicionarFiltro(UsuarioFilter filtro, Criteria criteria) {
 		if (filtro != null) {
 			
 			if (!StringUtils.isEmpty(filtro.getIdentidade())) {
@@ -52,9 +75,8 @@ public class UsuariosImpl  implements UsuariosQueries{
 				 criteria.add(Restrictions.eq("perfil", filtro.getPerfil()));
 			 }
 		}
-		return criteria.list();
 	}
-	
+		
 	private boolean isOrganizacaoMilitarPresente(UsuarioFilter filtro) {
 		return filtro.getOm() !=null && filtro.getOm().getCodigo() !=null;
 	}
