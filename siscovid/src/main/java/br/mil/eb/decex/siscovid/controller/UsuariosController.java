@@ -1,9 +1,9 @@
 package br.mil.eb.decex.siscovid.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.mil.eb.decex.siscovid.controller.page.PageWrapper;
 import br.mil.eb.decex.siscovid.enumerated.Perfil;
 import br.mil.eb.decex.siscovid.enumerated.PostoGraduacao;
 import br.mil.eb.decex.siscovid.model.Pessoa;
@@ -58,14 +59,15 @@ public class UsuariosController {
 	}
 	
 	@GetMapping
-	public ModelAndView pesquisar(UsuarioFilter usuarioFilter, BindingResult result, @PageableDefault(size = 2) Pageable pageable) {
+	public ModelAndView pesquisar(UsuarioFilter usuarioFilter, BindingResult result
+			, @PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("usuario/PesquisaUsuarios");
 		mv.addObject("postos", PostoGraduacao.values());
 		mv.addObject("grupos", Perfil.values() );
 		mv.addObject("organizacoesMilitares", oms.findAll());
 		
-		Page<Pessoa> pagina = usuarios.filtrar(usuarioFilter, pageable);
-		mv.addObject("pagina", pagina);
+		PageWrapper<Pessoa> paginaWrapper = new PageWrapper<>(usuarios.filtrar(usuarioFilter, pageable), httpServletRequest);
+		mv.addObject("pagina", paginaWrapper);
 		
 		return mv;
 				
