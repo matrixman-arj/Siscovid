@@ -34,9 +34,24 @@ Siscovid.MaskPhoneNumber = (function() {
 		};
 		
 		this.inputPhoneNumber.mask(maskBehavior, options);
-	}
+	}	
+	
 	
 	return MaskPhoneNumber;
+	
+}());
+
+Siscovid.MaskIdentidade = (function() {
+	
+	function MaskIdentidade(){
+		this.inputIdentidade = $('.js-identidade');
+	}
+	
+	MaskIdentidade.prototype.enable = function() {
+		this.inputIdentidade.mask('000.000.000-0' , {reverse: true});
+	}
+	
+	return MaskIdentidade;
 	
 }());
 
@@ -106,6 +121,9 @@ $(function() {
 	
 	var maskPhoneNumber = new Siscovid.MaskPhoneNumber();
 	maskPhoneNumber.enable();
+	
+	var maskIdentidade = new Siscovid.MaskIdentidade();
+	maskIdentidade.enable();
 	
 	var maskCep = new Siscovid.MaskCep();
 	maskCep.enable();

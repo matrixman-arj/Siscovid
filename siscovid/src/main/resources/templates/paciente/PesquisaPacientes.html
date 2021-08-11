@@ -8,7 +8,7 @@
 	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
-	<title>Pesquisa de Usuários</title>	
+	<title>Pesquisa de Pacientes</title>	
 </head>
 
 <body>	
@@ -17,13 +17,13 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-10">
-					<h1>Pesquisa de Usuários</h1>
+					<h1>Pesquisa de Pacientes</h1>
 				</div>
 				
 				<div class="col-sm-2">
 					<div class="decex-page-header-controls">
-						<a class="btn btn-default" th:href="@{/usuarios/novo}">
-							<i class="glyphicon glyphicon-plus-sign"></i> <span class="hidden-xs hidden-sm">Novo Usuário</span>
+						<a class="btn btn-default" th:href="@{/pacientes/novo}">
+							<i class="glyphicon glyphicon-plus-sign"></i> <span class="hidden-xs hidden-sm">Novo Paciente</span>
 						</a>
 					</div>
 				</div>
@@ -33,7 +33,7 @@
 	</div>
 	
 	<div class="container-fluid">	
-		<form method="GET" th:object="${usuarioFilter}">		
+		<form method="GET" th:object="${pacienteFilter}">		
 			<div class="row">			
 				<div class="form-group col-sm-4">
 					<label class="control-label" for="identidade">Identidade</label>
@@ -44,7 +44,7 @@
 					<label for="posto" class="control-label">Posto</label>
 					<select id="posto" class="form-control" th:field="*{posto}">
 	                    <option value="">Selecione posto</option>
-	                    <option th:each="posto : ${postos}" th:value="${posto}" th:text="${posto.descricao}">DECEx</option>
+	                    <option th:each="posto : ${postos}" th:value="${posto}" th:text="${posto.descricao}">General de Exército</option>
 	                </select>
 				</div>
 				
@@ -54,40 +54,17 @@
 				</div>
 			</div>
 			
-			<div class="row">	
-<!-- 				<div class="form-group col-sm-4"> -->
-<!-- 					<label class="control-label" for="nome">Nome</label> -->
-<!-- 					<input type="text" class="form-control" id="nome" th:field="*{nome}"/>				 -->
-<!-- 				</div> -->
-				
+			<div class="row">								
 				<div class="form-group col-sm-4">
 					<label for="om" class="control-label">OM</label>
 					<select id="om" class="form-control" th:field="*{om}">
 	                    <option value="">Selecione a OM</option>
 	                    <option th:each="om : ${organizacoesMilitares}" th:value="${om.codigo}" th:text="${om.sigla}" >DECEx</option>
 	                </select>
-				</div>
+				</div>				
 				
-				<div class="form-group col-sm-4">
-					<label class="control-label" for="email">E-mail</label>
-					<input type="text" class="form-control" id="email" th:field="*{email}"/>				
-				</div>
 			</div>
-			
-			<div class="row">
-				<div class="form-group  col-sm-12">
-					<label class="control-label">Grupos</label> 
-					<div>
-						<th:block th:each="grupo : ${grupos}" >
-	  						<div class="checkbox  checkbox-inline"> 
-		    					<input type="checkbox" th:value="${grupo}" th:field="*{perfil}"/>
-		    					<label th:for="grupo" th:text="${grupo.descricao}">Administrador</label>
-	    					</div>
-	    				</th:block>
-					</div>
-  				</div>
-			</div>			
-			
+									
 			<button type="submit" class="btn btn-primary">Pesquisar</button>		
 		</form>
 		
@@ -96,42 +73,32 @@
 		<div class="table-responsive sc-tabela-simples">
 			<table class="table table-hover">
 				<thead>
-					<tr>
-<!-- 						<th class="table-usuarios-col-status"> -->
-<!-- 	            			<div class="checkbox  sc-checkbox-no-margin"> -->
-<!-- 	            				<input type="checkbox" class="js-selecao-todos"/> -->
-<!-- 	            				<label></label> -->
-<!-- 	            			</div> -->
-<!-- 	            		</th> -->
+					<tr>            		
+	            		<th class="talble-pacientes-col-foto"></th>
+	            		<th class="talble-pacientes-col-idt">Identidade</th>
 	            		
-	            		<th class="talble-usuarios-col-foto"></th>
-	            		<th class="talble-usuarios-col-idt">Identidade</th>
-	            		
-	            		<th class="talble-usuarios-col-posto">	            			
-<!-- 	            			<th:block th:replace="fragments/Ordenacao :: order (${pagina}, 'posto', 'Posto')"></th:block> -->
+	            		<th class="talble-pacientes-col-posto">	            			
 								<siscovid:order page="${pagina}" field="posto" text="Posto"/>
 	            		</th>
 	            		
-	            		<th class="talble-usuarios-col-nomeGuerra">Nome de guerra</th>
-	            		<th class="talble-usuarios-col-om">OM</th>
-	            		
-	            			                	
-	                	<th class="talble-usuarios-col-grupo">Grupo</th>	                	
+	            		<th class="talble-pacientes-col-nomeGuerra">Nome de guerra</th>
+	            		<th class="talble-pacientes-col-om">OM</th>
+	            		      	              	
 	                 	<th class="table-col-acoes">Ações</th>
 					</tr>	
 				</thead>
 				
 				<tbody>
-					<tr th:each="usuario : ${pagina.conteudo}">
+					<tr th:each="paciente : ${pagina.conteudo}">
 						
 						<td class="text-center">
-							<img  th:src="@{/fotos/thumbnail.{foto}(foto=${usuario.fotoOuMock})}" class="img-responsive">
+							<img  th:src="@{/fotos/thumbnail.{foto}(foto=${paciente.fotoOuMock})}" class="img-responsive">
 						</td>
-						<td th:text="${usuario.identidade}">000.000.000-00</td>
-						<td th:text="${usuario.posto.descricao}">GEN_EXERCITO</td>
-						<td th:text="${usuario.nomeGuerra}">Vanilton</td>
-						<td th:text="${usuario.om.sigla}">DECEx</td>
-						<td th:text="${usuario.perfil}">Administrador</td>
+						<td th:text="${paciente.identidade}">000.000.000-00</td>
+						<td th:text="${paciente.posto.descricao}">GEN_EXERCITO</td>
+						<td th:text="${paciente.nomeGuerra}">Vanilton</td>
+						<td th:text="${paciente.om.sigla}">DECEx</td>
+						
 						<td>
 							<a class="btn btn-link btn-xs" title="Editar">
 								<i class="glyphicon glyphicon-pencil"></i>
@@ -145,12 +112,12 @@
 					</tr>
 					
 					<tr th:if="${pagina.vazia}">
-						<td colspan="7" class="sc-table-vazia">Nenhum usuário encontrado!</td>
+						<td colspan="7" class="sc-table-vazia">Nenhum paciente encontrado!</td>
 					</tr>
 				
 				</tbody>				
 			</table>
-		</div>						
+		</div>		
 		<siscovid:pagination page="${pagina}"/>		
 	</div>	
 </section>

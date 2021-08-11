@@ -20,14 +20,14 @@ public class CadastroUsuarioService {
 	private Pessoas pessoas;
 	
 	@Autowired
-	private Pacientes pacientes;
+	private Pacientes usuarios;
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
 	
 	@Transactional
 	public Pessoa salvar(Pessoa pessoa) {
-		Optional<Pessoa> pessoaOptional = pacientes.findByIdentidade(pessoa.getIdentidade());
+		Optional<Pessoa> pessoaOptional = usuarios.findByIdentidade(pessoa.getIdentidade());
 		if(pessoaOptional.isPresent()) {
 			throw new IdentidadeJaCadastradaException("Identidade já cadastrada!");
 		}

@@ -144,7 +144,7 @@
   height: 65px;
   opacity: 0.8;
   border-radius: 100%;
-  background: #1e94d2;
+  background: #1dbba2;
   text-indent: -9999px;
   -moz-animation: decex-balls-spinner 3s infinite ease-in-out;
   -webkit-animation: decex-balls-spinner 3s infinite ease-in-out;
@@ -243,7 +243,7 @@
   display: none;
   padding: 0;
   padding-top: 25%;
-  background-color: #1e94d2;
+  background-color: #1dbba2;
   text-align: center;
   font-size: 18px;
 }
@@ -373,7 +373,7 @@
   text-decoration: none;
 }
 .decex-menu__item.is-active > a {
-  color: #1e94d2;
+  color: #1dbba2;
 }
 .decex-menu__item.is-expanded {
   border-left: 3px solid;
@@ -407,12 +407,12 @@
 .decex-box {
   padding: 20px;
   margin-bottom: 15px;
-  border: 1px solid #eeeeee;
-  border-bottom: 3px solid #1e94d2;
+  border: 1px solid rgb(196, 251, 220);
+  border-bottom: 3px solid rgb(77, 164, 79);
 }
 .decex-box__icon {
   float: left;
-  color: #1e94d2;
+  color: rgb(102, 150, 90);
 }
 .decex-box__value {
   font-size: 1.69em;
@@ -565,6 +565,13 @@ body {
   background-color: #a1a1a1;
   border-color: #949494;
 }
+
+.btn-primary {
+  color: #ffffff;
+  background-color: #40E0D0;
+  border-color: #0c8e77;
+}
+
 .decex-btn-cancel:focus,
 .decex-btn-cancel.focus {
   color: #ffffff;

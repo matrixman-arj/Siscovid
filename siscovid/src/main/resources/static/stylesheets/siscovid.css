@@ -11,6 +11,12 @@
 	content: "*";
 }
 
+.sc-navbar-default {
+  background-color: #008080;
+  border-color: #004040;
+}
+
+
 
 /*
 ######################
@@ -72,6 +78,12 @@
     border-bottom: 1px solid #e7eaec;
     padding: 10px;
     vertical-align: middle;
+}
+
+.btn-primary {
+  color: #ffffff;
+  background-color: #2ea99c;
+  border-color: #0c8e77;
 }
 
 /*

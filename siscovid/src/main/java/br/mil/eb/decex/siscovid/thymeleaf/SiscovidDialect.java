@@ -9,6 +9,8 @@ import org.thymeleaf.standard.StandardDialect;
 
 import br.mil.eb.decex.siscovid.thymeleaf.processor.ClassForErrorAttributeTagProcessor;
 import br.mil.eb.decex.siscovid.thymeleaf.processor.MessageElementTagProcessor;
+import br.mil.eb.decex.siscovid.thymeleaf.processor.OrderElementTagProcessor;
+import br.mil.eb.decex.siscovid.thymeleaf.processor.PaginationElementTagProcessor;
 
 public class SiscovidDialect extends AbstractProcessorDialect{
 
@@ -22,6 +24,8 @@ public class SiscovidDialect extends AbstractProcessorDialect{
 		final Set<IProcessor> processadores = new HashSet<>();
 		processadores.add(new ClassForErrorAttributeTagProcessor(dialectPrefix));
 		processadores.add(new MessageElementTagProcessor(dialectPrefix));
+		processadores.add(new OrderElementTagProcessor(dialectPrefix));
+		processadores.add(new PaginationElementTagProcessor(dialectPrefix));
 		return processadores;
 		
 	}

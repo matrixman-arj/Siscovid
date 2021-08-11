@@ -1,13 +1,17 @@
 package br.mil.eb.decex.siscovid.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,8 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.mil.eb.decex.siscovid.controller.page.PageWrapper;
 import br.mil.eb.decex.siscovid.model.UnidadeMilitarSaude;
 import br.mil.eb.decex.siscovid.repository.UMSs;
+import br.mil.eb.decex.siscovid.repository.filter.UMSFilter;
 import br.mil.eb.decex.siscovid.service.CadastroUMSService;
 import br.mil.eb.decex.siscovid.service.exception.UMSJaCadastradaException;
 
@@ -67,6 +73,19 @@ public class UMSsController {
 		
 		ums = cadastroUMSService.salvar(ums);
 		return ResponseEntity.ok(ums);
+	}
+	
+	@GetMapping
+	public ModelAndView pesquisar(UMSFilter umsFilter, BindingResult result
+			, @PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView("unidadeSaude/PesquisaUMSs");			
+		mv.addObject("uCiviss", umss.findAll());
+		
+		PageWrapper<UnidadeMilitarSaude> paginaWrapper = new PageWrapper<>(umss.filtrar(umsFilter, pageable), httpServletRequest);
+		mv.addObject("pagina", paginaWrapper);
+		
+		return mv;
+				
 	}
 	
 }

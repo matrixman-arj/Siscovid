@@ -27,7 +27,7 @@
 					</h1>
 				</div>
 				<div class="col-xs-2">					
-					<div class="marajoara-page-header-controls">
+					<div class="decex-page-header-controls">
 						<a class="btn btn-default" th:href="@{/usuarios}">
 							<i class="glyphicon glyphicon-search"></i> <span class="hidden-xs hidden-sm">Pesquisar</span>
 						</a>
@@ -48,7 +48,7 @@
 							
 				<div class="col-sm-3 form-group sc-required" siscovid:classforerror="identidade">					
 					<label for="identidade" class="control-label">Identidade</label>
-					<input id="identidade" type="text" class="form-control" th:field="*{identidade}"/>					
+					<input id="identidade" type="text" class="form-control js-identidade" th:field="*{identidade}"/>					
 				</div>
 				
 				<div class="col-sm-6 form-group sc-required" siscovid:classforerror="nome">					
@@ -150,7 +150,7 @@
 	<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
 	<script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
 	<script th:src="@{/javascripts/vendors/upload.min.js}"></script>
-	<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+	<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>	
 	<script th:src="@{/javascripts/usuario.upload-foto.js}"></script>
 	
 	<script>
