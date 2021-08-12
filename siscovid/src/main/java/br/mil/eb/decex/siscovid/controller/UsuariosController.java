@@ -23,6 +23,7 @@ import br.mil.eb.decex.siscovid.repository.OMs;
 import br.mil.eb.decex.siscovid.repository.Usuarios;
 import br.mil.eb.decex.siscovid.repository.filter.UsuarioFilter;
 import br.mil.eb.decex.siscovid.service.CadastroUsuarioService;
+import br.mil.eb.decex.siscovid.service.exception.IdentidadeJaCadastradaException;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -43,19 +44,28 @@ public class UsuariosController {
 		mv.addObject("postos", PostoGraduacao.values());
 		mv.addObject("organizacoesMilitares", oms.findAll());
 		mv.addObject("perfis", Perfil.values());
+		mv.addObject("usuarios", usuarios.findAll());
 		return mv;
 	}
 	
 	@RequestMapping(value= "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Pessoa usuario, BindingResult result, Model model, RedirectAttributes attributes) {
-		if (result.hasErrors()) {		
-			return novo (usuario);
+		if (result.hasErrors()) {
+			model.addAttribute(usuario);
+			return novo(usuario);
 			
 		}
 		
-		cadastroUsuarioService.salvar(usuario);
-		attributes.addFlashAttribute("mensagem", "Usuário salvo com sucesso! ");
-		return new ModelAndView("redirect:/usuarios/novo");		
+		try {
+			cadastroUsuarioService.salvar(usuario);
+		} catch (IdentidadeJaCadastradaException e) {
+			result.rejectValue("identidade", e.getMessage(), e.getMessage());
+			return novo(usuario);
+			
+		}
+		attributes.addFlashAttribute("mensagem", "Usuaário salvo com sucesso! ");
+		return new ModelAndView("redirect:/usuarios/novo");
+		
 	}
 	
 	@GetMapping

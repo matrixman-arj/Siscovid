@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.mil.eb.decex.siscovid.model.Pessoa;
-import br.mil.eb.decex.siscovid.repository.Pacientes;
 import br.mil.eb.decex.siscovid.repository.Pessoas;
+import br.mil.eb.decex.siscovid.repository.Usuarios;
 import br.mil.eb.decex.siscovid.service.event.usuario.UsuarioSalvoEvent;
 import br.mil.eb.decex.siscovid.service.exception.IdentidadeJaCadastradaException;
 
@@ -20,7 +20,7 @@ public class CadastroUsuarioService {
 	private Pessoas pessoas;
 	
 	@Autowired
-	private Pacientes usuarios;
+	private Usuarios usuarios;
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
@@ -31,10 +31,8 @@ public class CadastroUsuarioService {
 		if(pessoaOptional.isPresent()) {
 			throw new IdentidadeJaCadastradaException("Identidade já cadastrada!");
 		}
-		
 		publisher.publishEvent(new UsuarioSalvoEvent(pessoa));
 		return pessoas.saveAndFlush(pessoa);
-		
 	}
 
 }

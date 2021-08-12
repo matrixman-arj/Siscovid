@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -94,6 +96,10 @@ public class Pessoa implements Serializable {
 //	@JoinColumn(name = "codigo_infectado")
 //	private Infectado infectado;
 	
+	@PrePersist @PreUpdate
+	private void prePersistPreUpdate() {
+		this.identidade = this.identidade.replaceAll("\\.|-", "");
+	}
 	
 	public long getCodigo() {
 		return codigo;

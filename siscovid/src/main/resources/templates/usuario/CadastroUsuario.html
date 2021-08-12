@@ -3,13 +3,14 @@
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	  layout:decorate="~{layout/layoutPadrao}"
-	  xmlns: ="http://siscovid.decex.eb.mil.br">
+	   xmlns:siscovid="http://siscovid.decex.eb.mil.br">
 
 <head>
 	<title>Cadastro de usuário</title>
 	
 	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}"/>
 	<link rel="stylesheet" th:href="@{/stylesheets/vendors/upload.min.css}"/>
+	
 </head>
 
 <body>
@@ -48,7 +49,7 @@
 							
 				<div class="col-sm-3 form-group sc-required" siscovid:classforerror="identidade">					
 					<label for="identidade" class="control-label">Identidade</label>
-					<input id="identidade" type="text" class="form-control js-identidade" th:field="*{identidade}"/>					
+					<input id="identidade" type="text" class="form-control" th:field="*{identidade}"/>					
 				</div>
 				
 				<div class="col-sm-6 form-group sc-required" siscovid:classforerror="nome">					
